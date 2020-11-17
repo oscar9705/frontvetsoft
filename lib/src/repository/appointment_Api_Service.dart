@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:demo/src/model/appointment_model.dart';
-import 'package:demo/src/utility/ErrorApiResponse.dart';
-import 'package:demo/src/utility/ApiResponse.dart';
-import 'package:demo/src/utility/MyConstants.dart';
+import 'package:demo/src/resource/Constants.dart';
+import 'package:demo/src/utils/apiresponse_model.dart';
+import 'package:demo/src/utils/errorapiresponse_model.dart';
 import 'dart:convert';
-import 'package:f_logs/f_logs.dart';
+import 'package:f_logs/model/flog/flog.dart';
 import 'package:http/http.dart' as http;
 
 class AppointmentApiService {
@@ -17,7 +17,7 @@ class AppointmentApiService {
     List<Appointment> listAppointments = List();
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     Uri url =
-        Uri.http(MyConstants.urlAuthority, MyConstants.urlFindAllApponintments);
+        Uri.http(Constants.urlAuthority, Constants.urlFindAllApponintments);
     var res = await http.get(url,
         headers: {HttpHeaders.authorizationHeader: "AutorizationHeader"});
     var resBody = json.decode(res.body);
@@ -40,8 +40,7 @@ class AppointmentApiService {
   Future<ApiResponse> insertAppointment(Appointment appointment) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var body = json.encode(appointment.toJsonRegistry());
-    Uri uri =
-        Uri.http(MyConstants.urlAuthority, MyConstants.urlInsertApponintment);
+    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlInsertApponintment);
     var res = await http.post(uri,
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
@@ -65,7 +64,7 @@ class AppointmentApiService {
   Future<ApiResponse> getAppointmentById(String id) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     Uri url =
-        Uri.http(MyConstants.urlAuthority, MyConstants.urlFindByIdApponintment);
+        Uri.http(Constants.urlAuthority, Constants.urlFindByIdApponintment);
     var res = await http.get(url,
         headers: {HttpHeaders.authorizationHeader: "AutorizationHeader"});
     var resBody = json.decode(res.body);
@@ -85,8 +84,7 @@ class AppointmentApiService {
   Future<ApiResponse> updateAppointment(Appointment appointment) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var body = json.encode(appointment.toJson());
-    Uri uri =
-        Uri.http(MyConstants.urlAuthority, MyConstants.urlUpdateApponintment);
+    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlUpdateApponintment);
     var res = await http.put(uri,
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
@@ -109,8 +107,7 @@ class AppointmentApiService {
 
   Future<ApiResponse> deleteAppointmentById(String id) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
-    Uri url =
-        Uri.http(MyConstants.urlAuthority, MyConstants.urlDeleteApponintment);
+    Uri url = Uri.http(Constants.urlAuthority, Constants.urlDeleteApponintment);
     var res = await http.get(url,
         headers: {HttpHeaders.authorizationHeader: "AutorizationHeader"});
     var resBody = json.decode(res.body);

@@ -1,6 +1,6 @@
 import 'package:demo/src/model/appointment_model.dart';
 import 'package:demo/src/repository/appointment_Api_Service.dart';
-import 'package:demo/src/utility/ApiResponse.dart';
+import 'package:demo/src/utils/apiresponse_model.dart';
 
 AppointmentApiService appointmentApiService;
 
