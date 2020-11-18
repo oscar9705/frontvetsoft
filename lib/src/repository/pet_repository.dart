@@ -1,8 +1,6 @@
 import 'package:demo/src/repository/pet_Api_Service.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
 import 'package:demo/src/model/pet_model.dart';
-
-import '../model/pet_model.dart';
 import '../model/pet_model.dart';
 
 class PetRepository {

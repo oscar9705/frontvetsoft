@@ -15,7 +15,7 @@ class PetApiService {
   Future<ApiResponse> getAllPet(String accessToken) async {
     List<Pet> listUsers = List();
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
-    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlFindAllPet);
+    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlFindAllPets);
     var res = await http.get(uri,
         headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
     var resBody = json.decode(res.body);
@@ -39,7 +39,7 @@ class PetApiService {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var queryParameters = {'id': idPet.toString()};
     Uri uri = Uri.http(
-        Constants.urlAuthority, Constants.urlFindByIdUPet, queryParameters);
+        Constants.urlAuthority, Constants.urlFindByIdPet, queryParameters);
     var res = await http.get(uri,
         headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
 

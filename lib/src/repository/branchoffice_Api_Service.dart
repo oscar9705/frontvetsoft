@@ -16,7 +16,7 @@ class BranchOfficeApiService {
     List<BranchOffice> listBranch = List();
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     Uri uri =
-        Uri.http(Constants.urlAuthority, Constants.urlFindAllBranchOffice);
+        Uri.http(Constants.urlAuthority, Constants.urlFindAllBranchOffices);
     var res = await http.get(uri,
         headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
     var resBody = json.decode(res.body);
@@ -109,7 +109,7 @@ class BranchOfficeApiService {
   Future<ApiResponse> deleteBranchOffice(int id, String accessToken) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var queryParameters = {'id': id.toString()};
-    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlDeleteBranchOffice,
+    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlDeletePBranchOffice,
         queryParameters);
     var res = await http.delete(uri,
         headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
