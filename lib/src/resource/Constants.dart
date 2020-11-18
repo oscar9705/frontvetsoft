@@ -1,5 +1,5 @@
 class Constants {
-  static const urlAuthority = "urlAuthority";
+  static const urlAuthority = "url";
 
   //API User
   static const urlFindAllUsers = "user/all";
