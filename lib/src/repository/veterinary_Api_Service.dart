@@ -1,51 +1,88 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:demo/src/resource/Constants.dart';
+import 'package:demo/src/utils/apiresponse_model.dart';
+import 'package:demo/src/utils/errorapiresponse_model.dart';
 import 'package:http/http.dart' as http;
-
+import 'package:f_logs/model/flog/flog.dart';
 import '../model/veterinary_model.dart';
 
 class VeterinaryApiService {
   Veterinary _veterinary;
+  ErrorApiResponse _error;
 
   VeterinaryApiService();
 
-  String urlAutorithy = "";
-  String method = "";
-  Future<Veterinary> saveVeterinary(Veterinary veterinary) async {
+  Future<ApiResponse> insertVeterinary(
+      Veterinary veterinary, String accessToken) async {
+    ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var body = json.encode(veterinary.toJsonRegistry());
-    Uri url = Uri.http(urlAutorithy, method);
-    var res = await http.post(
-      url,
-      headers: {HttpHeaders.contentTypeHeader: "application/json"},
-      body: body,
-    );
+    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlInsertVeterinary);
+    var res = await http.post(uri,
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+          HttpHeaders.authorizationHeader: "Bearer " + accessToken
+        },
+        body: body);
+
     var resBody = json.decode(res.body);
-    _veterinary = Veterinary.fromJson(resBody);
-    return _veterinary;
+    apiResponse.statusResponse = res.statusCode;
+    if (apiResponse.statusResponse == 200) {
+      _veterinary = Veterinary.fromJson(resBody);
+      apiResponse.object = _veterinary;
+    } else {
+      _error = ErrorApiResponse.fromJson(resBody);
+      FLog.error(text: _error.toJson().toString());
+      apiResponse.object = _error;
+    }
+    return apiResponse;
   }
 
-  Future<Veterinary> updateVeterinary(Veterinary veterinary) async {
+  Future<ApiResponse> updateVeterinary(
+      Veterinary veterinary, String accessToken) async {
+    ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var body = json.encode(veterinary.toJson());
-    Uri url = Uri.http(urlAutorithy, method);
-    var res = await http.put(
-      url,
-      headers: {HttpHeaders.contentTypeHeader: "application/json"},
-      body: body,
-    );
+    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlUpdateVeterinary);
+    var res = await http.put(uri,
+        headers: {
+          HttpHeaders.contentTypeHeader: "application/json",
+          HttpHeaders.authorizationHeader: "Bearer " + accessToken
+        },
+        body: body);
+
     var resBody = json.decode(res.body);
-    _veterinary = Veterinary.fromJson(resBody);
-    return _veterinary;
+    apiResponse.statusResponse = res.statusCode;
+    if (apiResponse.statusResponse == 200) {
+      _veterinary = Veterinary.fromJson(resBody);
+      apiResponse.object = _veterinary;
+    } else {
+      _error = ErrorApiResponse.fromJson(resBody);
+      FLog.error(text: _error.toJson().toString());
+      apiResponse.object = _error;
+    }
+    return apiResponse;
   }
 
-  Future<List<Veterinary>> findAllVeterinary() async {
+  Future<ApiResponse> findAllVeterinary(String accessToken) async {
     List<Veterinary> listVeterinary = List();
-    Uri url = Uri.http(urlAutorithy, method);
-    var resp = await http.get(url);
-    var respBody = json.decode(resp.body);
+    ApiResponse apiResponse = ApiResponse(statusResponse: 0);
+    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlFindAllVeterinarys);
+    var res = await http.get(uri,
+        headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
+    var resBody = json.decode(res.body);
 
-    respBody.forEach((i) {
-      listVeterinary.add(Veterinary.fromJson(i));
-    });
-    return listVeterinary;
+    apiResponse.statusResponse = res.statusCode;
+
+    if (apiResponse.statusResponse == 200) {
+      resBody.forEach((i) {
+        listVeterinary.add(Veterinary.fromJson(i));
+        return i;
+      });
+      apiResponse.object = listVeterinary;
+    } else {
+      _error = ErrorApiResponse.fromJson(resBody);
+      apiResponse.object = _error;
+    }
+    return apiResponse;
   }
 }
