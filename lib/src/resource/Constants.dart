@@ -14,4 +14,12 @@ class Constants {
   static const urlFindByIdApponintment = "213";
   static const urlUpdateApponintment = "312";
   static const urlDeleteApponintment = "312";
+
+  //BranchOffice
+
+  static const urlFindAllBranchOffice = "branchoffice/all";
+  static const urlInsertBranchOffice = "branchoffice/save";
+  static const urlFindByIdBranchOffice = "branchoffice/id";
+  static const urlUpdateBranchOffice = "branchoffice/update";
+  static const urlDeleteBranchOffice = "branchoffice/delete";
 }
