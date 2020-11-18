@@ -15,10 +15,20 @@ class Constants {
   static const urlUpdateApponintment = "312";
   static const urlDeleteApponintment = "312";
 
+<<<<<<< HEAD
   //API Pet
   static const urlFindAllPet = "pet/all";
   static const urlFindByIdUPet = "pet/id";
   static const urlInsertPet = "pet/save";
   static const urlUpdatePet = "pet/update";
   static const urlDeletePet = "pet/delete";
+=======
+  //BranchOffice
+
+  static const urlFindAllBranchOffice = "branchoffice/all";
+  static const urlInsertBranchOffice = "branchoffice/save";
+  static const urlFindByIdBranchOffice = "branchoffice/id";
+  static const urlUpdateBranchOffice = "branchoffice/update";
+  static const urlDeleteBranchOffice = "branchoffice/delete";
+>>>>>>> develop
 }
