@@ -17,7 +17,7 @@ class PetApiService {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     Uri uri = Uri.http(Constants.urlAuthority, Constants.urlFindAllPets);
     var res = await http.get(uri,
-        headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
+        headers: {HttpHeaders.authorizationHeader: 'Bearer' + accessToken});
     var resBody = json.decode(res.body);
 
     apiResponse.statusResponse = res.statusCode;
