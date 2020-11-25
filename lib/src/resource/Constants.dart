@@ -1,6 +1,10 @@
 class Constants {
   static const urlAuthority = "url";
 
+  //BloC User
+  static const insertSuccess = "Se guardó correctamente";
+  static const updateSuccess = "Se atualizó correctamente";
+
   //API User
   static const urlFindAllUsers = "user/all";
   static const urlFindByIdUser = "user/id";

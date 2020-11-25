@@ -6,6 +6,8 @@ class UserRepository {
   UserApiService userApiService;
   String accessToken;
 
+  validateExpirationSession() {}
+
   Future<ApiResponse> getAllUsers() => userApiService.getAllUsers(accessToken);
 
   Future<ApiResponse> getUserById(int id) =>

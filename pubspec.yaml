@@ -23,6 +23,7 @@ environment:
 dependencies:
   f_logs: ^1.2.2
   http: ^0.12.2
+  pedantic: ^1.8.0
   flutter:
     sdk: flutter
 

@@ -31,7 +31,7 @@ class User {
       this.role});
 
   factory User.fromJson(Map<String, dynamic> json) {
-    return new User(
+    return User(
         id: json['id'],
         names: json['names'],
         surnames: json['surnames'],
