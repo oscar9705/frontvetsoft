@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:demo/src/repository/veterinary_repository.dart';
+import 'package:demo/src/resource/Constants.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
+import 'package:demo/src/utils/errorapiresponse_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 
@@ -20,4 +22,25 @@ class VeterinaryBloc {
     _context = context;
     _apiResponse = ApiResponse();
   }
+  Future<ApiResponse> createVeterinary(Veterinary veterinary) async {
+    _apiResponse = await _repository.insertVeterinary(veterinary);
+    if (_apiResponse.statusResponse == 200) {
+      _apiResponse.message = Constants.insertSuccess;
+    } else {
+      ErrorApiResponse error = _apiResponse.object;
+    }
+    return _apiResponse;
+  }
+
+  Future<ApiResponse> updateVeterinary(Veterinary veterinary) async {
+    _apiResponse = await _repository.updateVeterinary(veterinary);
+    if (_apiResponse.statusResponse == 200) {
+      _apiResponse.message = Constants.updateSuccess;
+    } else {
+      ErrorApiResponse error = _apiResponse.object;
+    }
+    return _apiResponse;
+  }
+
+  void dispose() {}
 }
