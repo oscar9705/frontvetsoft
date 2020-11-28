@@ -40,4 +40,5 @@ class Constants {
   static const insertSuccess = "Insertado exitosamente";
   static const updateSuccess = "Actualizado exitosamente";
   static const deleteSuccess = "Eliminado exitosamente";
+  static const searchSuccess = "la busqueda fue exitosa";
 }
