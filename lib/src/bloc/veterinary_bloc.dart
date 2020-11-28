@@ -56,5 +56,18 @@ class VeterinaryBloc {
     return _apiResponse;
   }
 
-  void dispose() {}
+  Future<ApiResponse> deleteVeterinary(int id) async {
+    _apiResponse = await _repository.deleteVeterinary(id);
+    if (_apiResponse.statusResponse == 200) {
+      _apiResponse.message = Constants.deleteSuccess;
+    } else {
+      ErrorApiResponse error = _apiResponse.object;
+    }
+    return _apiResponse;
+  }
+
+  void dispose() {
+    _veterinaryListController.close();
+    _veterinaryController.close();
+  }
 }
