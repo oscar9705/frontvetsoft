@@ -4,7 +4,7 @@ import 'package:demo/src/utils/apiresponse_model.dart';
 
 AppointmentApiService appointmentApiService;
 
-class AppointmentRespository {
+class AppointmentRepository {
   Future<ApiResponse> getAllAppointments() =>
       appointmentApiService.getAllAppointments();
   Future<ApiResponse> getAppointmentById(String id) =>
