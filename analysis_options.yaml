@@ -4,6 +4,7 @@ analyzer:
   exclude: [build/**]
   errors:
     omit_local_variable_types: ignore
+    prefer_single_quotes: ignore
     prefer_collection_literals: ignore
 linter:
   rules:
