@@ -23,18 +23,30 @@ class Constants {
   static const urlDeleteVeterinary = "veterinary/delete";
 
   //API Pet
-  static const urlFindAllPets = "pet/all";
-  static const urlInsertPet = "pet/save";
-  static const urlFindByIdPet = "pet/id";
-  static const urlUpdatePet = "pet/update";
-  static const urlDeletePet = "pet/delete";
+  static const urlFindAllPets = "/pet/all";
+  static const urlInsertPet = "/pet/save";
+  static const urlFindByIdPet = "/pet/id";
+  static const urlUpdatePet = "/pet/update";
+  static const urlDeletePet = "/pet/delete";
   //BranchOffice
 
-  static const urlFindAllBranchOffice = "branchoffice/all";
-  static const urlInsertBranchOffice = "branchoffice/save";
-  static const urlFindByIdBranchOffice = "branchoffice/id";
-  static const urlUpdateBranchOffice = "branchoffice/update";
-  static const urlDeleteBranchOffice = "branchoffice/delete";
+  static const urlFindAllBranchOffice = "/branchoffice/all";
+  static const urlInsertBranchOffice = "/branchoffice/save";
+  static const urlFindByIdBranchOffice = "/branchoffice/id";
+  static const urlUpdateBranchOffice = "/branchoffice/update";
+  static const urlDeleteBranchOffice = "/branchoffice/delete";
+  // Auth
 
-  
+  static const urlRegister = "/auth/register";
+  static const urlLogin = "/auth/login";
+
+  //Message
+  static const insertSuccess = "Insertado exitosamente";
+  static const updateSuccess = "Actualizado exitosamente";
+  static const deleteSuccess = "Eliminado exitosamente";
+  static const searchSuccess = "la busqueda fue exitosa";
+
+  //Error
+  static const insertError = "Error al insertar";
+  static const loginSuccess = "El inicio de sesión fue exitoso";
 }
