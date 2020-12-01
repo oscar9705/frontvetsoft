@@ -11,7 +11,7 @@ import '../model/veterinary_model.dart';
 
 class VeterinaryBloc {
   final _repository = VeterinaryRepository();
-  var _apiResponse = ApiResponse();
+  var _apiResponse;
   Veterinary _veterinary;
   BuildContext _context;
   ProgressDialog _progressDialog;

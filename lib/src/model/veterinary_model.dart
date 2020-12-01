@@ -1,5 +1,3 @@
-import 'package:demo/src/model/user_model.dart';
-
 class Veterinary {
   int id;
   String name;
