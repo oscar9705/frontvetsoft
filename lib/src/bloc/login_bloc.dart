@@ -7,18 +7,20 @@ import 'package:demo/src/utils/errorapiresponse_model.dart';
 
 class LoginBloc {
   final _repository = GeneralRepository();
-  var _apiResponse = ApiResponse();
+  ApiResponse _apiResponse = ApiResponse();
+
+  ApiResponse get apiResponse => _apiResponse;
 
   LoginBloc() {}
 
   Future<ApiResponse> login(Login login) async {
-    _apiResponse = await _repository.login(login);
-    if (_apiResponse.statusResponse == 200) {
-      _apiResponse.message = Constants.insertSuccess;
+    ApiResponse apiResponse = await _repository.login(login);
+    if (apiResponse.statusResponse == 200) {
+      apiResponse.message = Constants.insertSuccess;
     } else {
-      ErrorApiResponse error = _apiResponse.object;
+      ErrorApiResponse error = apiResponse.object;
     }
-    return _apiResponse;
+    return apiResponse;
   }
 
   Future<ApiResponse> register(User user) async {
@@ -30,4 +32,7 @@ class LoginBloc {
     }
     return _apiResponse;
   }
+
+  @override
+  void dispose() {}
 }

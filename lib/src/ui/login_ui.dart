@@ -1,19 +1,35 @@
 import 'dart:math';
 
+import 'package:demo/src/bloc/login_bloc.dart';
+import 'package:demo/src/model/login_model.dart' as LoginModel;
 import 'package:demo/src/ui/sign_up_ui.dart';
+import 'package:demo/src/utils/apiresponse_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Login extends StatefulWidget {
   Login({Key key, this.title}) : super(key: key);
   final String title;
+  final LoginBloc loginBlocc = LoginBloc();
 
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+  LoginBloc loginBloc;
+  LoginModel.Login login = LoginModel.Login(password: '', username: '');
+
+  final textController = TextEditingController();
+  final textControllerPass = TextEditingController();
+
   Widget _entryField(String title, {bool isPassword = false}) {
+    TextEditingController controller;
+    if (title == 'Contraseña') {
+      controller = textControllerPass;
+    } else {
+      controller = textController;
+    }
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -32,6 +48,7 @@ class _LoginState extends State<Login> {
           ),
           TextField(
               obscureText: isPassword,
+              controller: controller,
               decoration: InputDecoration(
                   border: InputBorder.none,
                   fillColor: Colors.white,
@@ -41,33 +58,55 @@ class _LoginState extends State<Login> {
     );
   }
 
+  @override
+  @override
+  void initState() {
+    super.initState();
+    loginBloc = LoginBloc();
+  }
+
   Widget _submitButton() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.white30,
-                offset: Offset(2, 4),
-                blurRadius: 10,
-                spreadRadius: 1)
-          ],
-          gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Colors.blue[600], Colors.blueAccent[100]])),
-      child: Text(
-        'Iniciar sesión',
-        style: GoogleFonts.portLligatSlab(
-            textStyle: Theme.of(context).textTheme.headline4,
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-            color: Colors.white),
+    return InkWell(
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(vertical: 15),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                  color: Colors.white30,
+                  offset: Offset(2, 4),
+                  blurRadius: 10,
+                  spreadRadius: 1)
+            ],
+            gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [Colors.blue[600], Colors.blueAccent[100]])),
+        child: Text(
+          'Iniciar sesión',
+          style: GoogleFonts.portLligatSlab(
+              textStyle: Theme.of(context).textTheme.headline4,
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: Colors.white),
+        ),
       ),
+      onTap: tap,
     );
+  }
+
+  void tap() {
+    login.username = textController.text;
+    login.password = textControllerPass.text;
+
+    print(login.username);
+    print(login.password);
+
+    loginBloc.login(login).then((ApiResponse value) {
+      print(value.message);
+    });
   }
 
   Widget _divider() {
@@ -192,6 +231,12 @@ class _LoginState extends State<Login> {
         _entryField("Contraseña", isPassword: true),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    loginBloc.dispose();
   }
 
   @override
