@@ -1,5 +1,5 @@
 class Constants {
-  static const urlAuthority = "urlAuthority";
+  static const urlAuthority = "192.168.0.8:8083/api/petsoft/";
 
   //API User
   static const urlFindAllUsers = "user/all";
@@ -35,6 +35,10 @@ class Constants {
   static const urlFindByIdBranchOffice = "branchoffice/id";
   static const urlUpdateBranchOffice = "branchoffice/update";
   static const urlDeleteBranchOffice = "branchoffice/delete";
+
+  // Auth
+  static const urlRegister = "auth/register";
+  static const urlLogin = "auth/login";
 
   //Message
   static const insertSuccess = "Insertado exitosamente";
