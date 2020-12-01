@@ -1,12 +1,12 @@
 class Constants {
-  static const urlAuthority = "urlAuthority";
+  static const urlAuthority = "192.168.0.8:8083/api/petsoft";
 
   //API User
-  static const urlFindAllUsers = "user/all";
-  static const urlFindByIdUser = "user/id";
-  static const urlInsertUser = "user/save";
-  static const urlUpdateUser = "user/update";
-  static const urlDeleteUser = "user/delete";
+  static const urlFindAllUsers = "/user/all";
+  static const urlFindByIdUser = "/user/id";
+  static const urlInsertUser = "/user/save";
+  static const urlUpdateUser = "/user/update";
+  static const urlDeleteUser = "/user/delete";
 
   //API Appointment
   static const urlFindAllApponintments = "appointment/all";
@@ -16,11 +16,11 @@ class Constants {
   static const urlDeleteApponintment = "appointment/delete";
 
   //API Veterinary
-  static const urlFindAllVeterinarys = "veterinary/all";
-  static const urlInsertVeterinary = "veterinary/save";
-  static const urlFindByIdVeterinary = "veterinary/id";
-  static const urlUpdateVeterinary = "veterinary/update";
-  static const urlDeleteVeterinary = "veterinary/delete";
+  static const urlFindAllVeterinarys = "/veterinary/all";
+  static const urlInsertVeterinary = "/veterinary/save";
+  static const urlFindByIdVeterinary = "/veterinary/id";
+  static const urlUpdateVeterinary = "/veterinary/update";
+  static const urlDeleteVeterinary = "/veterinary/delete";
 
   //API Pet
   static const urlFindAllPets = "/pet/all";
@@ -35,8 +35,8 @@ class Constants {
   static const urlFindByIdBranchOffice = "/branchoffice/id";
   static const urlUpdateBranchOffice = "/branchoffice/update";
   static const urlDeleteBranchOffice = "/branchoffice/delete";
-  // Auth
 
+  // Auth
   static const urlRegister = "/auth/register";
   static const urlLogin = "/auth/login";
 
@@ -45,8 +45,8 @@ class Constants {
   static const updateSuccess = "Actualizado exitosamente";
   static const deleteSuccess = "Eliminado exitosamente";
   static const searchSuccess = "la busqueda fue exitosa";
-
   //Error
+
   static const insertError = "Error al insertar";
   static const loginSuccess = "El inicio de sesión fue exitoso";
 }
