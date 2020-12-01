@@ -9,14 +9,14 @@ import 'package:demo/src/utils/errorapiresponse_model.dart';
 import 'package:http/http.dart' as http;
 
 class LoginApiService {
-  Token _token;
-  User _user;
+  Token _token = Token();
+  User _user = User();
   ErrorApiResponse _error;
 
   Future<ApiResponse> login(Login login) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var body = json.encode(login.toJson());
-    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlLogin);
+    Uri uri = Uri.http("192.168.0.8:8083/api/petsoft", Constants.urlLogin);
     var res = await http.post(uri, body: body);
 
     var resBody = json.decode(res.body);
@@ -33,6 +33,7 @@ class LoginApiService {
   Future<ApiResponse> register(User user) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var body = json.encode(user.toJson());
+    print(Constants.urlAuthority);
     Uri uri = Uri.http(Constants.urlAuthority, Constants.urlRegister);
     var res = await http.post(uri, body: body);
 

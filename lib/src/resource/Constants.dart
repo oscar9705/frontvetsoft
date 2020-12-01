@@ -1,12 +1,12 @@
 class Constants {
-  static const urlAuthority = "192.168.0.8:8083/api/petsoft/";
+  static const urlAuthority = "192.168.0.8:8083/api/petsoft";
 
   //API User
-  static const urlFindAllUsers = "user/all";
-  static const urlFindByIdUser = "user/id";
-  static const urlInsertUser = "user/save";
-  static const urlUpdateUser = "user/update";
-  static const urlDeleteUser = "user/delete";
+  static const urlFindAllUsers = "/user/all";
+  static const urlFindByIdUser = "/user/id";
+  static const urlInsertUser = "/user/save";
+  static const urlUpdateUser = "/user/update";
+  static const urlDeleteUser = "/user/delete";
 
   //API Appointment
   static const urlFindAllApponintments = "appointment/all";
@@ -16,29 +16,29 @@ class Constants {
   static const urlDeleteApponintment = "appointment/delete";
 
   //API Veterinary
-  static const urlFindAllVeterinarys = "veterinary/all";
-  static const urlInsertVeterinary = "veterinary/save";
-  static const urlFindByIdVeterinary = "veterinary/id";
-  static const urlUpdateVeterinary = "veterinary/update";
-  static const urlDeleteVeterinary = "veterinary/delete";
+  static const urlFindAllVeterinarys = "/veterinary/all";
+  static const urlInsertVeterinary = "/veterinary/save";
+  static const urlFindByIdVeterinary = "/veterinary/id";
+  static const urlUpdateVeterinary = "/veterinary/update";
+  static const urlDeleteVeterinary = "/veterinary/delete";
 
   //API Pet
-  static const urlFindAllPets = "pet/all";
-  static const urlInsertPet = "pet/save";
-  static const urlFindByIdPet = "pet/id";
-  static const urlUpdatePet = "pet/update";
-  static const urlDeletePet = "pet/delete";
+  static const urlFindAllPets = "/pet/all";
+  static const urlInsertPet = "/pet/save";
+  static const urlFindByIdPet = "/pet/id";
+  static const urlUpdatePet = "/pet/update";
+  static const urlDeletePet = "/pet/delete";
   //BranchOffice
 
-  static const urlFindAllBranchOffice = "branchoffice/all";
-  static const urlInsertBranchOffice = "branchoffice/save";
-  static const urlFindByIdBranchOffice = "branchoffice/id";
-  static const urlUpdateBranchOffice = "branchoffice/update";
-  static const urlDeleteBranchOffice = "branchoffice/delete";
+  static const urlFindAllBranchOffice = "/branchoffice/all";
+  static const urlInsertBranchOffice = "/branchoffice/save";
+  static const urlFindByIdBranchOffice = "/branchoffice/id";
+  static const urlUpdateBranchOffice = "/branchoffice/update";
+  static const urlDeleteBranchOffice = "/branchoffice/delete";
 
   // Auth
-  static const urlRegister = "auth/register";
-  static const urlLogin = "auth/login";
+  static const urlRegister = "/auth/register";
+  static const urlLogin = "/auth/login";
 
   //Message
   static const insertSuccess = "Insertado exitosamente";

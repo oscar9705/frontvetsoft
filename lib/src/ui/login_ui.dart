@@ -3,19 +3,23 @@ import 'dart:math';
 import 'package:demo/src/bloc/login_bloc.dart';
 import 'package:demo/src/model/login_model.dart' as LoginModel;
 import 'package:demo/src/ui/sign_up_ui.dart';
+import 'package:demo/src/utils/apiresponse_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Login extends StatefulWidget {
-  Login({Key key, this.title, this.login}) : super(key: key);
+  Login({Key key, this.title}) : super(key: key);
   final String title;
-  final LoginModel.Login login;
+  final LoginBloc loginBlocc = LoginBloc();
 
   @override
   _LoginState createState() => _LoginState();
 }
 
 class _LoginState extends State<Login> {
+  LoginBloc loginBloc;
+  LoginModel.Login login = LoginModel.Login(password: '', username: '');
+
   final textController = TextEditingController();
   final textControllerPass = TextEditingController();
 
@@ -54,6 +58,13 @@ class _LoginState extends State<Login> {
     );
   }
 
+  @override
+  @override
+  void initState() {
+    super.initState();
+    loginBloc = LoginBloc();
+  }
+
   Widget _submitButton() {
     return InkWell(
       child: Container(
@@ -87,12 +98,15 @@ class _LoginState extends State<Login> {
   }
 
   void tap() {
-    LoginModel.Login login = LoginModel.Login(
-        password: textControllerPass.text, username: textController.text);
-    print(login.password);
+    login.username = textController.text;
+    login.password = textControllerPass.text;
+
     print(login.username);
-    LoginBloc loginBloc;
-    loginBloc.login(login);
+    print(login.password);
+
+    loginBloc.login(login).then((ApiResponse value) {
+      print(value.message);
+    });
   }
 
   Widget _divider() {
@@ -217,6 +231,12 @@ class _LoginState extends State<Login> {
         _entryField("Contraseña", isPassword: true),
       ],
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    loginBloc.dispose();
   }
 
   @override
