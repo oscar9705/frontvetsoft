@@ -59,7 +59,6 @@ class _LoginState extends State<Login> {
   }
 
   @override
-  @override
   void initState() {
     super.initState();
     loginBloc = LoginBloc();
