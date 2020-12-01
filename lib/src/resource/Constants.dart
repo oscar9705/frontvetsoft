@@ -28,11 +28,6 @@ class Constants {
   static const urlFindByIdPet = "pet/id";
   static const urlUpdatePet = "pet/update";
   static const urlDeletePet = "pet/delete";
-
-  // Bloc Pet
-  static const insertSuccess = "Se guardó correctamente";
-  static const updateSuccess = "Se atualizó correctamente";
-  static const deleteSuccess = "Se atualizó correctamente";
   //BranchOffice
 
   static const urlFindAllBranchOffice = "branchoffice/all";
@@ -40,4 +35,14 @@ class Constants {
   static const urlFindByIdBranchOffice = "branchoffice/id";
   static const urlUpdateBranchOffice = "branchoffice/update";
   static const urlDeleteBranchOffice = "branchoffice/delete";
+
+  //Message
+  static const insertSuccess = "Insertado exitosamente";
+  static const updateSuccess = "Actualizado exitosamente";
+  static const deleteSuccess = "Eliminado exitosamente";
+  static const searchSuccess = "la busqueda fue exitosa";
+
+  //Error
+
+  static const insertError = "Error al insertar";
 }

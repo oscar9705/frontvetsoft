@@ -85,4 +85,44 @@ class VeterinaryApiService {
     }
     return apiResponse;
   }
+
+  Future<ApiResponse> getVeterinaryById(int id, String accessToken) async {
+    ApiResponse apiResponse = ApiResponse(statusResponse: 0);
+    var queryParameters = {'id': id.toString()};
+    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlFindByIdVeterinary,
+        queryParameters);
+    var res = await http.get(uri,
+        headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
+
+    var resBody = json.decode(res.body);
+    apiResponse.statusResponse = res.statusCode;
+    if (apiResponse.statusResponse == 200) {
+      _veterinary = Veterinary.fromJson(resBody);
+      apiResponse.object = _veterinary;
+    } else {
+      _error = ErrorApiResponse.fromJson(resBody);
+      apiResponse.object = _error;
+    }
+    return apiResponse;
+  }
+
+  Future<ApiResponse> deleteVeterinary(int id, String accessToken) async {
+    ApiResponse apiResponse = ApiResponse(statusResponse: 0);
+    var queryParameters = {'id': id.toString()};
+    Uri uri = Uri.http(
+        Constants.urlAuthority, Constants.urlDeleteVeterinary, queryParameters);
+    var res = await http.delete(uri,
+        headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
+
+    var resBody = json.decode(res.body);
+    apiResponse.statusResponse = res.statusCode;
+    if (apiResponse.statusResponse == 200) {
+      _veterinary = Veterinary.fromJson(resBody);
+      apiResponse.object = _veterinary;
+    } else {
+      _error = ErrorApiResponse.fromJson(resBody);
+      apiResponse.object = _error;
+    }
+    return apiResponse;
+  }
 }
