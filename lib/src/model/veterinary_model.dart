@@ -4,12 +4,14 @@ class Veterinary {
   String nit;
   String email;
   bool state;
+  //User user;
   Veterinary({
     this.id,
     this.name,
     this.nit,
     this.email,
     this.state,
+    //this.user,
   });
 
   factory Veterinary.fromJson(Map<String, dynamic> json) {

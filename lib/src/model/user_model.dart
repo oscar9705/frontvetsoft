@@ -31,7 +31,7 @@ class User {
       this.role});
 
   factory User.fromJson(Map<String, dynamic> json) {
-    return new User(
+    return User(
         id: json['id'],
         names: json['names'],
         surnames: json['surnames'],
@@ -45,7 +45,7 @@ class User {
         email: json['email'],
         password: json['password'],
         state: json['state'],
-        role: json['role']);
+        role: json['roleUser']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -62,7 +62,7 @@ class User {
         'email': email,
         'password': password,
         'state': state,
-        'role': role
+        'roleUser': role
       };
 
   Map<String, dynamic> toJsonRegistry() => {
@@ -78,6 +78,6 @@ class User {
         'email': email,
         'password': password,
         'state': state,
-        'role': role
+        'roleUser': role
       };
 }
