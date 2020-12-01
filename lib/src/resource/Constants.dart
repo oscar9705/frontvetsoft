@@ -28,15 +28,11 @@ class Constants {
   static const urlFindByIdPet = "pet/id";
   static const urlUpdatePet = "pet/update";
   static const urlDeletePet = "pet/delete";
-<<<<<<< Updated upstream
 
-  //API Branch Office
-  static const urlFindAllBranchOffices = "boffice/all";
-  static const urlInsertBranchOffice = "boffice/save";
-  static const urlFindByIdBranchOffice = "boffice/id";
-  static const urlUpdateBranchOffice = "boffice/update";
-  static const urlDeletePBranchOffice = "boffice/delete";
-=======
+  // Bloc Pet
+  static const insertSuccess = "Se guardó correctamente";
+  static const updateSuccess = "Se atualizó correctamente";
+  static const deleteSuccess = "Se atualizó correctamente";
   //BranchOffice
 
   static const urlFindAllBranchOffice = "branchoffice/all";
@@ -44,5 +40,4 @@ class Constants {
   static const urlFindByIdBranchOffice = "branchoffice/id";
   static const urlUpdateBranchOffice = "branchoffice/update";
   static const urlDeleteBranchOffice = "branchoffice/delete";
->>>>>>> Stashed changes
 }

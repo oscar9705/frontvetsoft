@@ -7,7 +7,7 @@ class BranchOffice {
   BranchOffice({this.id, this.address, this.telephone, this.image});
 
   factory BranchOffice.fromJson(Map<String, dynamic> json) {
-    return new BranchOffice(
+    return BranchOffice(
       id: json['id'],
       address: json['address'],
       telephone: json['telephone'],
