@@ -53,6 +53,7 @@ class UserBloc {
     if (apiResponse.statusResponse == 200) {
       apiResponse.message = Constants.updateSuccess;
     } else {
+      _apiResponse = apiResponse;
       ErrorApiResponse error = apiResponse.object;
       FLog.error(text: error.message);
     }
