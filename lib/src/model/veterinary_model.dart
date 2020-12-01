@@ -15,7 +15,7 @@ class Veterinary {
   });
 
   factory Veterinary.fromJson(Map<String, dynamic> json) {
-    return new Veterinary(
+    return Veterinary(
       id: json['idVet'],
       name: json['nameVet'],
       nit: json['nitVet'],
