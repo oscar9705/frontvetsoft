@@ -1,9 +1,10 @@
-import 'package:demo/src/model/branchoffice_model.dart';
-import 'package:f_logs/model/flog/flog.dart';
-
 import 'dart:convert';
 import 'dart:io';
+
+import 'package:demo/src/model/branchoffice_model.dart';
+import 'package:f_logs/model/flog/flog.dart';
 import 'package:http/http.dart' as http;
+
 import '../resource/Constants.dart';
 import '../utils/apiresponse_model.dart';
 import '../utils/errorapiresponse_model.dart';

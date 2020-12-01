@@ -21,7 +21,7 @@ class Pet {
       this.statePet});
 
   factory Pet.fromJson(Map<String, dynamic> json) {
-    return new Pet(
+    return Pet(
         idPet: json['idPet'],
         namePet: json['namePet'],
         speciePet: json['speciePet'],

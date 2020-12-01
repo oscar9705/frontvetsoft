@@ -45,5 +45,8 @@ class Constants {
   static const updateSuccess = "Actualizado exitosamente";
   static const deleteSuccess = "Eliminado exitosamente";
   static const searchSuccess = "la busqueda fue exitosa";
+  //Error
+
+  static const insertError = "Error al insertar";
   static const loginSuccess = "El inicio de sesión fue exitoso";
 }
