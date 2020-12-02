@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:demo/src/bloc/login_bloc.dart';
 import 'package:demo/src/model/login_model.dart' as LoginModel;
+import 'package:demo/src/model/token.model.dart';
 import 'package:demo/src/ui/sign_up_ui.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   LoginBloc loginBloc;
   LoginModel.Login login = LoginModel.Login(password: '', username: '');
+  Token token = Token(username: '', token: '', bearer: '');
 
   final textController = TextEditingController();
   final textControllerPass = TextEditingController();
@@ -103,8 +105,12 @@ class _LoginState extends State<Login> {
     print(login.username);
     print(login.password);
 
-    loginBloc.login(login).then((ApiResponse value) {
-      print(value.message);
+    loginBloc.login(login).then((ApiResponse apiResponse) {
+      print(apiResponse.statusResponse);
+      if (apiResponse.statusResponse == 200) {
+        token = apiResponse.object;
+      }
+      print(token.token);
     });
   }
 
