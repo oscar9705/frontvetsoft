@@ -3,8 +3,10 @@ import 'dart:math';
 import 'package:demo/src/bloc/login_bloc.dart';
 import 'package:demo/src/model/login_model.dart' as LoginModel;
 import 'package:demo/src/model/token.model.dart';
+import 'package:demo/src/resource/Constants.dart';
 import 'package:demo/src/ui/sign_up_ui.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
+import 'package:demo/src/utils/validators_forms.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,17 +23,19 @@ class _LoginState extends State<Login> {
   LoginBloc loginBloc;
   LoginModel.Login login = LoginModel.Login(password: '', username: '');
   Token token = Token(username: '', token: '', bearer: '');
-
+  final GlobalKey<FormState> _formLogin = GlobalKey<FormState>();
   final textController = TextEditingController();
   final textControllerPass = TextEditingController();
 
+  @override
+  void initState() {
+    super.initState();
+    loginBloc = LoginBloc();
+  }
+
   Widget _entryField(String title, {bool isPassword = false}) {
     TextEditingController controller;
-    if (title == 'Contraseña') {
-      controller = textControllerPass;
-    } else {
-      controller = textController;
-    }
+    controller = isPassword ? textControllerPass : textController;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -48,7 +52,10 @@ class _LoginState extends State<Login> {
           SizedBox(
             height: 10,
           ),
-          TextField(
+          TextFormField(
+              validator: (value) =>
+                  value.isEmpty ? Constants.requireData : null,
+              onSaved: (value) => print(value + "  assss"),
               obscureText: isPassword,
               controller: controller,
               decoration: InputDecoration(
@@ -58,12 +65,6 @@ class _LoginState extends State<Login> {
         ],
       ),
     );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    loginBloc = LoginBloc();
   }
 
   Widget _submitButton() {
@@ -232,16 +233,17 @@ class _LoginState extends State<Login> {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Correo"),
-        _entryField("Contraseña", isPassword: true),
+        Form(
+          key: _formLogin,
+          child: Column(
+            children: [
+              _entryField("Correo"),
+              _entryField("Contraseña", isPassword: true),
+            ],
+          ),
+        ),
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    loginBloc.dispose();
   }
 
   @override
@@ -305,5 +307,11 @@ class _LoginState extends State<Login> {
         ],
       ),
     ));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    loginBloc.dispose();
   }
 }
