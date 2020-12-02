@@ -137,11 +137,14 @@ class _SignUpState extends State<SignUp> {
       context: context,
       initialDate: _date,
       firstDate: DateTime(1950),
-      lastDate: DateTime(2002),
+      lastDate: DateTime(2021),
+      locale: const Locale("es", "ES"),
     );
     if (picked != null && picked != _date) {
       setState(() {
         _date = picked;
+        print("prueba");
+        print(_date);
       });
     }
   }
@@ -175,15 +178,12 @@ class _SignUpState extends State<SignUp> {
                   color: Colors.blueGrey[700],
                 ),
                 onChanged: (value) {
-                  //_selection(value);
-                  print(value);
                   _typeDocument = value;
                   print(_typeDocument);
                 },
                 items: _list.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
                     onTap: () {
-                      print("onTap");
                       _selection(value);
                     },
                     value: value,
@@ -195,20 +195,27 @@ class _SignUpState extends State<SignUp> {
           ),
         ]),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-          Text('Fecha nacimiento',
-              style: GoogleFonts.montserrat(
-                  textStyle: Theme.of(context).textTheme.headline4,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87)),
-          Container(
-            child: IconButton(
-              icon: Icon(Icons.calendar_today),
-              onPressed: () {
-                selectDate(context);
-              },
-            ),
-          )
+          Row(
+            children: [
+              Text('Fecha nacimiento',
+                  style: GoogleFonts.montserrat(
+                      textStyle: Theme.of(context).textTheme.headline4,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87)),
+              SizedBox(
+                width: 20.0,
+              ),
+              Container(
+                child: IconButton(
+                  icon: Icon(Icons.calendar_today),
+                  onPressed: () {
+                    selectDate(context);
+                  },
+                ),
+              )
+            ],
+          ),
         ]),
         _entryField("Departamento"),
         _entryField("Ciudad"),
