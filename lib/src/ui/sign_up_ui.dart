@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:demo/src/widget/button_blue_widget.dart';
+import 'package:demo/src/widget/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -96,32 +98,6 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  Widget _title() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(children: [
-        TextSpan(
-          text: 'Pet',
-          style: GoogleFonts.portLligatSans(
-            textStyle: Theme.of(context).textTheme.headline4,
-            fontSize: 40,
-            fontWeight: FontWeight.w700,
-            color: Colors.black87,
-          ),
-        ),
-        TextSpan(
-          text: 'Soft',
-          style: GoogleFonts.portLligatSlab(
-            textStyle: Theme.of(context).textTheme.headline4,
-            fontSize: 40,
-            fontWeight: FontWeight.w700,
-            color: Colors.lightBlue[900],
-          ),
-        ),
-      ]),
-    );
-  }
-
   Future<Null> selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       context: context,
@@ -144,35 +120,42 @@ class _SignUpState extends State<SignUp> {
         _entryField("Apellidos"),
         _entryField("Documuento"),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-          Text('Tipo de documento',
-              style: GoogleFonts.montserrat(
-                  textStyle: Theme.of(context).textTheme.headline4,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87)),
-          DropdownButton<String>(
-            value: dropdownValue,
-            icon: Icon(Icons.arrow_drop_down),
-            iconSize: 24,
-            elevation: 16,
-            style: TextStyle(color: Colors.black87),
-            underline: Container(
-              height: 2,
-              color: Colors.blueGrey[700],
-            ),
-            onChanged: (String newValue) {
-              setState(() {
-                dropdownValue = newValue;
-              });
-            },
-            items: <String>['CC', 'TI', 'CE']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-          )
+          Row(
+            children: [
+              Text('Tipo de documento',
+                  style: GoogleFonts.montserrat(
+                      textStyle: Theme.of(context).textTheme.headline4,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87)),
+              SizedBox(
+                width: 15.0,
+              ),
+              DropdownButton<String>(
+                value: dropdownValue,
+                icon: Icon(Icons.arrow_drop_down),
+                iconSize: 24,
+                elevation: 16,
+                style: TextStyle(color: Colors.black87),
+                underline: Container(
+                  height: 2,
+                  color: Colors.blueGrey[700],
+                ),
+                onChanged: (String newValue) {
+                  setState(() {
+                    dropdownValue = newValue;
+                  });
+                },
+                items: <String>['CC', 'TI', 'CE']
+                    .map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
         ]),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
           Text('Fecha nacimiento',
@@ -237,7 +220,7 @@ class _SignUpState extends State<SignUp> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(height: height * .2),
-                    _title(),
+                    TitleApp(),
                     SizedBox(
                       height: 50,
                     ),

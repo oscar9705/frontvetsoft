@@ -7,6 +7,8 @@ import 'package:demo/src/resource/Constants.dart';
 import 'package:demo/src/ui/sign_up_ui.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
 import 'package:demo/src/utils/validators_forms.dart';
+import 'package:demo/src/widget/button_blue_widget.dart';
+import 'package:demo/src/widget/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -34,8 +36,6 @@ class _LoginState extends State<Login> {
   }
 
   Widget _entryField(String title, {bool isPassword = false}) {
-    TextEditingController controller;
-    controller = isPassword ? textControllerPass : textController;
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -55,9 +55,10 @@ class _LoginState extends State<Login> {
           TextFormField(
               validator: (value) =>
                   value.isEmpty ? Constants.requireData : null,
-              onSaved: (value) => print(value + "  assss"),
+              onSaved: (value) {
+                isPassword ? login.password = value : login.username = value;
+              },
               obscureText: isPassword,
-              controller: controller,
               decoration: InputDecoration(
                   border: InputBorder.none,
                   fillColor: Colors.white,
@@ -67,42 +68,10 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget _submitButton() {
-    return InkWell(
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(vertical: 15),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                  color: Colors.white30,
-                  offset: Offset(2, 4),
-                  blurRadius: 10,
-                  spreadRadius: 1)
-            ],
-            gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [Colors.blue[600], Colors.blueAccent[100]])),
-        child: Text(
-          'Iniciar sesión',
-          style: GoogleFonts.portLligatSlab(
-              textStyle: Theme.of(context).textTheme.headline4,
-              fontSize: 20,
-              fontWeight: FontWeight.w700,
-              color: Colors.white),
-        ),
-      ),
-      onTap: tap,
-    );
-  }
-
-  void tap() {
-    login.username = textController.text;
-    login.password = textControllerPass.text;
-
+  void submit() {
+    final formLogin = _formLogin.currentState;
+    formLogin.save();
+    print(formLogin.validate());
     print(login.username);
     print(login.password);
 
@@ -204,32 +173,6 @@ class _LoginState extends State<Login> {
     );
   }
 
-  Widget _title() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(children: [
-        TextSpan(
-          text: 'Pet',
-          style: GoogleFonts.portLligatSans(
-            textStyle: Theme.of(context).textTheme.headline4,
-            fontSize: 40,
-            fontWeight: FontWeight.w700,
-            color: Colors.black87,
-          ),
-        ),
-        TextSpan(
-          text: 'Soft',
-          style: GoogleFonts.portLligatSlab(
-            textStyle: Theme.of(context).textTheme.headline4,
-            fontSize: 40,
-            fontWeight: FontWeight.w700,
-            color: Colors.lightBlue[900],
-          ),
-        ),
-      ]),
-    );
-  }
-
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
@@ -283,21 +226,15 @@ class _LoginState extends State<Login> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   SizedBox(height: height * .2),
-                  _title(),
+                  TitleApp(),
                   SizedBox(height: 50),
                   _emailPasswordWidget(),
                   SizedBox(height: 20),
-                  _submitButton(),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    alignment: Alignment.bottomCenter,
-                    child: Text('¿Olvidaste tu contraseña?',
-                        style: GoogleFonts.montserrat(
-                            textStyle: Theme.of(context).textTheme.headline4,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w300,
-                            color: Colors.black87)),
+                  ButtonBlue(
+                    onTap: submit,
+                    texto: 'Iniciar sesión',
                   ),
+                  _containerContrasenia(),
                   _divider(),
                   _createAccountLabel(),
                 ],
@@ -307,6 +244,19 @@ class _LoginState extends State<Login> {
         ],
       ),
     ));
+  }
+
+  Widget _containerContrasenia() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 10),
+      alignment: Alignment.bottomCenter,
+      child: Text('¿Olvidaste tu contraseña?',
+          style: GoogleFonts.montserrat(
+              textStyle: Theme.of(context).textTheme.headline4,
+              fontSize: 12,
+              fontWeight: FontWeight.w300,
+              color: Colors.black87)),
+    );
   }
 
   @override
