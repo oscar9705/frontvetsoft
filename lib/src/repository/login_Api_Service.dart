@@ -16,8 +16,12 @@ class LoginApiService {
   Future<ApiResponse> login(Login login) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var body = json.encode(login.toJson());
-    Uri uri = Uri.http("192.168.0.8:8083/api/petsoft", Constants.urlLogin);
-    var res = await http.post(uri, body: body);
+    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlLogin);
+    var res = await http.post(
+      uri,
+      headers: {'Content-Type': 'application/json; charset=utf-8'},
+      body: body,
+    );
 
     var resBody = json.decode(res.body);
     apiResponse.statusResponse = res.statusCode;

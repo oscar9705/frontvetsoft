@@ -15,7 +15,8 @@ class PetApiService {
   Future<ApiResponse> getAllPet(String accessToken) async {
     List<Pet> listUsers = List();
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
-    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlFindAllPets);
+    Uri uri = Uri.http(
+        Constants.urlAuthority, Constants.pathBase + Constants.urlFindAllPets);
     var res = await http.get(uri,
         headers: {HttpHeaders.authorizationHeader: 'Bearer' + accessToken});
     var resBody = json.decode(res.body);
@@ -38,8 +39,8 @@ class PetApiService {
   Future<ApiResponse> getPetById(int idPet, String accessToken) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var queryParameters = {'id': idPet.toString()};
-    Uri uri = Uri.http(
-        Constants.urlAuthority, Constants.urlFindByIdPet, queryParameters);
+    Uri uri = Uri.http(Constants.urlAuthority,
+        Constants.pathBase + Constants.urlFindByIdPet, queryParameters);
     var res = await http.get(uri,
         headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
 
@@ -58,7 +59,8 @@ class PetApiService {
   Future<ApiResponse> insertPet(Pet pet, String accessToken) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var body = json.encode(pet.toJsonRegistry());
-    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlInsertPet);
+    Uri uri = Uri.http(
+        Constants.urlAuthority, Constants.pathBase + Constants.urlInsertPet);
     var res = await http.post(uri,
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
@@ -82,7 +84,8 @@ class PetApiService {
   Future<ApiResponse> updatePet(Pet pet, String accessToken) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var body = json.encode(pet.toJson());
-    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlUpdateUser);
+    Uri uri = Uri.http(
+        Constants.urlAuthority, Constants.pathBase + Constants.urlUpdateUser);
     var res = await http.put(uri,
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
@@ -106,8 +109,8 @@ class PetApiService {
   Future<ApiResponse> deletePet(int idPet, String accessToken) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var queryParameters = {'id': idPet.toString()};
-    Uri uri = Uri.http(
-        Constants.urlAuthority, Constants.urlDeleteUser, queryParameters);
+    Uri uri = Uri.http(Constants.urlAuthority,
+        Constants.pathBase + Constants.urlDeleteUser, queryParameters);
     var res = await http.delete(uri,
         headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
 

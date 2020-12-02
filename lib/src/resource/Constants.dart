@@ -1,43 +1,44 @@
 class Constants {
-  static const urlAuthority = "192.168.0.8:8083/api/petsoft";
+  static const urlAuthority = "192.168.0.8:8083";
+  static const pathBase = "/api/petsoft";
 
   //API User
-  static const urlFindAllUsers = "/user/all";
-  static const urlFindByIdUser = "/user/id";
-  static const urlInsertUser = "/user/save";
-  static const urlUpdateUser = "/user/update";
-  static const urlDeleteUser = "/user/delete";
+  static const urlFindAllUsers = pathBase + "/user/all";
+  static const urlFindByIdUser = pathBase + "/user/id";
+  static const urlInsertUser = pathBase + "/user/save";
+  static const urlUpdateUser = pathBase + "/user/update";
+  static const urlDeleteUser = pathBase + "/user/delete";
 
   //API Appointment
-  static const urlFindAllApponintments = "appointment/all";
-  static const urlInsertApponintment = "appointment/save";
-  static const urlFindByIdApponintment = "appointment/id";
-  static const urlUpdateApponintment = "appointment/update";
-  static const urlDeleteApponintment = "appointment/delete";
+  static const urlFindAllApponintments = pathBase + "appointment/all";
+  static const urlInsertApponintment = pathBase + "appointment/save";
+  static const urlFindByIdApponintment = pathBase + "appointment/id";
+  static const urlUpdateApponintment = pathBase + "appointment/update";
+  static const urlDeleteApponintment = pathBase + "appointment/delete";
 
   //API Veterinary
-  static const urlFindAllVeterinarys = "/veterinary/all";
-  static const urlInsertVeterinary = "/veterinary/save";
-  static const urlFindByIdVeterinary = "/veterinary/id";
-  static const urlUpdateVeterinary = "/veterinary/update";
-  static const urlDeleteVeterinary = "/veterinary/delete";
+  static const urlFindAllVeterinarys = pathBase + "/veterinary/all";
+  static const urlInsertVeterinary = pathBase + "/veterinary/save";
+  static const urlFindByIdVeterinary = pathBase + "/veterinary/id";
+  static const urlUpdateVeterinary = pathBase + "/veterinary/update";
+  static const urlDeleteVeterinary = pathBase + "/veterinary/delete";
 
   //API Pet
-  static const urlFindAllPets = "/pet/all";
-  static const urlInsertPet = "/pet/save";
-  static const urlFindByIdPet = "/pet/id";
-  static const urlUpdatePet = "/pet/update";
-  static const urlDeletePet = "/pet/delete";
+  static const urlFindAllPets = pathBase + "/pet/all";
+  static const urlInsertPet = pathBase + "/pet/save";
+  static const urlFindByIdPet = pathBase + "/pet/id";
+  static const urlUpdatePet = pathBase + "/pet/update";
+  static const urlDeletePet = pathBase + "/pet/delete";
   //BranchOffice
 
-  static const urlFindAllBranchOffice = "/branchoffice/all";
-  static const urlInsertBranchOffice = "/branchoffice/save";
-  static const urlFindByIdBranchOffice = "/branchoffice/id";
-  static const urlUpdateBranchOffice = "/branchoffice/update";
-  static const urlDeleteBranchOffice = "/branchoffice/delete";
+  static const urlFindAllBranchOffice = pathBase + "/branchoffice/all";
+  static const urlInsertBranchOffice = pathBase + "/branchoffice/save";
+  static const urlFindByIdBranchOffice = pathBase + "/branchoffice/id";
+  static const urlUpdateBranchOffice = pathBase + "/branchoffice/update";
+  static const urlDeleteBranchOffice = pathBase + "/branchoffice/delete";
 
   // Auth
-  static const urlRegister = "/auth/register";
+  static const urlRegister = pathBase + "/auth/register";
   static const urlLogin = "/auth/login";
 
   //Message
