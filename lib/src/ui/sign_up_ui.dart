@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:demo/src/widget/button_blue_widget.dart';
 import 'package:demo/src/widget/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,6 +14,41 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   DateTime _date = DateTime.now();
+  String _typeDocument;
+  List<String> _list = List();
+
+  void _selection(String selectType) {
+    setState(() {
+      _typeDocument = selectType;
+      String _type;
+      if (_typeDocument == "CC") {
+        _type = "CC";
+        _list = ["CC", "TI", "CE"];
+      }
+      if (_typeDocument == "TI") {
+        _type = "TI";
+        _list = ["TI", "CC", "CE"];
+        print(_list);
+      }
+      if (_typeDocument == "CE") {
+        _type = "CE";
+        _list = ["CE", "TI", "CC"];
+      }
+      _typeDocument = _type;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    lista();
+  }
+
+  List<String> lista() {
+    _list = ["CC", "TI", "CE"];
+    print(_list.toString());
+    return _list;
+  }
 
   Widget _backButton() {
     return InkWell(
@@ -113,7 +147,6 @@ class _SignUpState extends State<SignUp> {
   }
 
   Widget _registryBody() {
-    String dropdownValue = 'CC';
     return Column(
       children: <Widget>[
         _entryField("Nombres"),
@@ -132,7 +165,7 @@ class _SignUpState extends State<SignUp> {
                 width: 15.0,
               ),
               DropdownButton<String>(
-                value: dropdownValue,
+                value: _list[0],
                 icon: Icon(Icons.arrow_drop_down),
                 iconSize: 24,
                 elevation: 16,
@@ -141,14 +174,18 @@ class _SignUpState extends State<SignUp> {
                   height: 2,
                   color: Colors.blueGrey[700],
                 ),
-                onChanged: (String newValue) {
-                  setState(() {
-                    dropdownValue = newValue;
-                  });
+                onChanged: (value) {
+                  //_selection(value);
+                  print(value);
+                  _typeDocument = value;
+                  print(_typeDocument);
                 },
-                items: <String>['CC', 'TI', 'CE']
-                    .map<DropdownMenuItem<String>>((String value) {
+                items: _list.map<DropdownMenuItem<String>>((String value) {
                   return DropdownMenuItem<String>(
+                    onTap: () {
+                      print("onTap");
+                      _selection(value);
+                    },
                     value: value,
                     child: Text(value),
                   );
