@@ -45,12 +45,16 @@ class Constants {
   static const updateSuccess = "Actualizado exitosamente";
   static const deleteSuccess = "Eliminado exitosamente";
   static const searchSuccess = "la busqueda fue exitosa";
-  //Error
 
+  //Error
   static const insertError = "Error al insertar";
   static const loginSuccess = "El inicio de sesión fue exitoso";
 
-  //message validation
+  //Message validation
   static const requireData = "El campo es requerido";
   static const content = {'Content-Type': 'application/json; charset=utf-8'};
+
+  //Constants bool
+  static const bool falseConstant = false;
+  static const bool trueConstant = true;
 }
