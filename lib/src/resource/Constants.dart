@@ -53,5 +53,5 @@ class Constants {
 
   //message validation
   static const requireData = "El campo es requerido";
-  static const logi = "";
+  static const content = {'Content-Type': 'application/json; charset=utf-8'};
 }

@@ -1,8 +1,15 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:demo/src/bloc/login_bloc.dart';
+import 'package:demo/src/bloc/user_bloc.dart';
+import 'package:demo/src/model/user_model.dart';
+import 'package:demo/src/resource/Constants.dart';
+import 'package:demo/src/utils/apiresponse_model.dart';
+import 'package:demo/src/widget/button_blue_widget.dart';
 import 'package:demo/src/widget/title_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignUp extends StatefulWidget {
@@ -20,6 +27,21 @@ class _SignUpState extends State<SignUp> {
   DateTime _date;
   String _typeDocument;
   List<String> _list = List();
+  User user = User(
+      id: null,
+      names: '',
+      surnames: '',
+      documentType: '',
+      documentValue: '',
+      birthdate: null,
+      department: '',
+      city: '',
+      neighborhood: '',
+      telephone: '',
+      email: '',
+      password: '',
+      state: null,
+      role: '');
 
   String _dateLabel() {
     return _date.toString().contains('null') ? ' ' : _date.toString();
@@ -32,15 +54,17 @@ class _SignUpState extends State<SignUp> {
       if (_typeDocument == "CC") {
         _type = "CC";
         _list = ["CC", "TI", "CE"];
+        user.documentType = _type;
       }
       if (_typeDocument == "TI") {
         _type = "TI";
         _list = ["TI", "CC", "CE"];
-        print(_list);
+        user.documentType = _type;
       }
       if (_typeDocument == "CE") {
         _type = "CE";
         _list = ["CE", "TI", "CC"];
+        user.documentType = _type;
       }
       _typeDocument = _type;
     });
@@ -50,11 +74,11 @@ class _SignUpState extends State<SignUp> {
   void initState() {
     super.initState();
     lista();
+    loginBloc = LoginBloc();
   }
 
   List<String> lista() {
     _list = ["CC", "TI", "CE"];
-    print(_list.toString());
     return _list;
   }
 
@@ -100,7 +124,12 @@ class _SignUpState extends State<SignUp> {
           SizedBox(
             height: 10,
           ),
-          TextField(
+          TextFormField(
+              validator: (value) =>
+                  value.isEmpty ? Constants.requireData : null,
+              onSaved: (value) {
+                setUser(value, title);
+              },
               obscureText: isPassword,
               decoration: InputDecoration(
                   border: InputBorder.none,
@@ -111,33 +140,15 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  Widget _submitButton() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.white30,
-                offset: Offset(2, 4),
-                blurRadius: 10,
-                spreadRadius: 1)
-          ],
-          gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Colors.blue[600], Colors.blueAccent[100]])),
-      child: Text(
-        'Registrar',
-        style: GoogleFonts.portLligatSlab(
-            textStyle: Theme.of(context).textTheme.headline4,
-            fontSize: 20,
-            fontWeight: FontWeight.w700,
-            color: Colors.white),
-      ),
-    );
+  void setUser(String value, String title) {
+    if (title == "Nombres") user.names = value;
+    if (title == "Apellidos") user.surnames = value;
+    if (title == "Documento") user.documentValue = value;
+    if (title == "Ciudad") user.city = value;
+    if (title == "Barrio") user.neighborhood = value;
+    if (title == "Telefono") user.telephone = value;
+    if (title == "Correo") user.email = value;
+    if (title == "Contraseña") user.password = value;
   }
 
   Future<Null> selectDate(BuildContext context) async {
@@ -152,88 +163,118 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         _date = picked;
         print("prueba");
-        print(_date);
+        print(_date.toString());
+        user.birthdate = picked;
       });
     }
   }
 
   Widget _registryBody() {
-    return Column(
-      children: <Widget>[
-        _entryField("Nombres"),
-        _entryField("Apellidos"),
-        _entryField("Documuento"),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-          Row(
-            children: [
-              Text('Tipo de documento',
-                  style: GoogleFonts.montserrat(
-                      textStyle: Theme.of(context).textTheme.headline4,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87)),
-              SizedBox(
-                width: 15.0,
-              ),
-              DropdownButton<String>(
-                value: _list[0],
-                icon: Icon(Icons.arrow_drop_down),
-                iconSize: 24,
-                elevation: 16,
-                style: TextStyle(color: Colors.black87),
-                underline: Container(
-                  height: 2,
-                  color: Colors.blueGrey[700],
-                ),
-                onChanged: (value) {
-                  _typeDocument = value;
-                  print(_typeDocument);
-                },
-                items: _list.map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    onTap: () {
-                      _selection(value);
-                    },
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-            ],
+    return Form(
+      key: _formRegister,
+      child: Column(
+        children: <Widget>[
+          _entryField("Nombres"),
+          _entryField("Apellidos"),
+          _entryField("Documuento"),
+          SizedBox(
+            height: 20.0,
           ),
-        ]),
-        Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-          Row(
-            children: [
-              Text('Fecha nacimiento',
-                  style: GoogleFonts.montserrat(
-                      textStyle: Theme.of(context).textTheme.headline4,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87)),
-              SizedBox(
-                width: 20.0,
-              ),
-              Container(
-                child: IconButton(
-                  icon: Icon(Icons.calendar_today),
-                  onPressed: () {
-                    selectDate(context);
-                  },
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: [
+                    Text('Tipo de documento',
+                        style: GoogleFonts.montserrat(
+                            textStyle: Theme.of(context).textTheme.headline4,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black87)),
+                    SizedBox(
+                      width: 15.0,
+                    ),
+                    DropdownButton<String>(
+                      value: _list[0],
+                      icon: Icon(Icons.arrow_drop_down),
+                      iconSize: 24,
+                      elevation: 16,
+                      style: TextStyle(color: Colors.black87),
+                      underline: Container(
+                        height: 2,
+                        color: Colors.blueGrey[700],
+                      ),
+                      onChanged: (value) {
+                        _typeDocument = value;
+                      },
+                      items:
+                          _list.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          onTap: () {
+                            _selection(value);
+                          },
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                    ),
+                  ],
                 ),
-              ),
-              Text(_dateLabel()),
-            ],
+              ]),
+          SizedBox(
+            height: 20.0,
           ),
-        ]),
-        _entryField("Departamento"),
-        _entryField("Ciudad"),
-        _entryField("Barrio"),
-        _entryField("Telefono"),
-        _entryField("Correo"),
-        _entryField("Contraseña", isPassword: true),
-      ],
+          Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  children: [
+                    Text('Fecha nacimiento',
+                        style: GoogleFonts.montserrat(
+                            textStyle: Theme.of(context).textTheme.headline4,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.black87)),
+                    SizedBox(
+                      width: 20.0,
+                    ),
+                    Container(
+                      child: IconButton(
+                        icon: Icon(Icons.calendar_today),
+                        onPressed: () {
+                          selectDate(context);
+                        },
+                      ),
+                    ),
+                    Text(_dateLabel()),
+                  ],
+                ),
+              ]),
+          SizedBox(
+            height: 20.0,
+          ),
+          _entryField("Departamento"),
+          _entryField("Ciudad"),
+          _entryField("Barrio"),
+          _entryField("Telefono"),
+          _entryField("Correo"),
+          _entryField("Contraseña", isPassword: true),
+        ],
+      ),
     );
+  }
+
+  void submit() {
+    final formRegister = _formRegister.currentState;
+    formRegister.save();
+    user.state = false;
+    user.role = "AUX";
+    print(user.birthdate.toString());
+    loginBloc.register(user).then((ApiResponse resp) {
+      if (resp.statusResponse == 200) {
+        print(resp.message);
+      }
+    });
   }
 
   @override
@@ -281,7 +322,10 @@ class _SignUpState extends State<SignUp> {
                     SizedBox(
                       height: 20,
                     ),
-                    _submitButton(),
+                    ButtonBlue(
+                      onTap: submit,
+                      texto: 'Iniciar sesión',
+                    ),
                     SizedBox(height: height * .14)
                   ],
                 ),
@@ -292,5 +336,11 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    loginBloc.dispose();
   }
 }

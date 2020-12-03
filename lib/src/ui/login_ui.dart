@@ -6,7 +6,6 @@ import 'package:demo/src/model/token.model.dart';
 import 'package:demo/src/resource/Constants.dart';
 import 'package:demo/src/ui/sign_up_ui.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
-import 'package:demo/src/utils/validators_forms.dart';
 import 'package:demo/src/widget/button_blue_widget.dart';
 import 'package:demo/src/widget/title_widget.dart';
 import 'package:flutter/material.dart';
