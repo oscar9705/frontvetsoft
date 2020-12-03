@@ -17,6 +17,7 @@ class Constants {
   static const urlDeleteApponintment = pathBase + "appointment/delete";
 
   //API Veterinary
+<<<<<<< HEAD
   static const urlFindAllVeterinarys = pathBase + "/veterinary/all";
   static const urlInsertVeterinary = pathBase + "/veterinary/save";
   static const urlFindByIdVeterinary = pathBase + "/veterinary/id";
@@ -27,7 +28,6 @@ class Constants {
   static const urlFindAllPets = pathBase + "/pet/all";
   static const urlInsertPet = pathBase + "/pet/save";
   static const urlFindByIdPet = pathBase + "/pet/id";
-  static const urlUpdatePet = pathBase + "/pet/update";
   static const urlDeletePet = pathBase + "/pet/delete";
   //BranchOffice
 
@@ -39,18 +39,21 @@ class Constants {
 
   // Auth
   static const urlRegister = pathBase + "/auth/register";
-  static const urlLogin = "/auth/login";
+=======
+  static const urlFindAllVeterinarys = "/veterinary/all";
+  static const urlInsertVeterinary = "/veterinary/save";
+  static const urlFindByIdVeterinary = "/veterinary/id";
+  static const urlUpdateVeterinary = "/veterinary/update";
+  static const urlDeleteVeterinary = "/veterinary/delete";
 
-  //Message
-  static const insertSuccess = "Insertado exitosamente";
-  static const updateSuccess = "Actualizado exitosamente";
-  static const deleteSuccess = "Eliminado exitosamente";
-  static const searchSuccess = "la busqueda fue exitosa";
-  //Error
-
-  static const insertError = "Error al insertar";
-  static const loginSuccess = "El inicio de sesión fue exitoso";
+  //API Pet
+  static const urlFindAllPets = "/pet/all";
+  static const urlInsertPet = "/pet/save";
+  static const urlFindByIdPet = "/pet/id";
+<<<<<<< HEAD
 
   //message validation
   static const requireData = "El campo es requerido";
+=======
+>>>>>>> 1b3023dec0e6dc0980f40b46db788521fa56fa87
 }
