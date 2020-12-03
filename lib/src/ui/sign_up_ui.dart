@@ -6,6 +6,7 @@ import 'package:demo/src/bloc/user_bloc.dart';
 import 'package:demo/src/model/user_model.dart';
 import 'package:demo/src/resource/Constants.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
+import 'package:demo/src/widget/background_widget.dart';
 import 'package:demo/src/widget/button_blue_widget.dart';
 import 'package:demo/src/widget/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -285,27 +286,7 @@ class _SignUpState extends State<SignUp> {
         height: height,
         child: Stack(
           children: <Widget>[
-            Positioned(
-                top: -MediaQuery.of(context).size.height * .15,
-                right: -MediaQuery.of(context).size.width * .4,
-                child: Container(
-                    child: Transform.rotate(
-                  angle: -pi / 3.5,
-                  child: ClipPath(
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * .6,
-                      width: MediaQuery.of(context).size.width * 2.3,
-                      decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                            Colors.blueGrey[100],
-                            Colors.lightBlue[50]
-                          ])),
-                    ),
-                  ),
-                ))),
+            BackgroundWidget(),
             Container(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: SingleChildScrollView(
