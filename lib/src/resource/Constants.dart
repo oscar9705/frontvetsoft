@@ -39,7 +39,7 @@ class Constants {
 
   // Auth
   static const urlRegister = pathBase + "/auth/register";
-  static const urlLogin = "/auth/login";
+  static const urlLogin = pathBase + "/auth/login";
 
   //Message
   static const insertSuccess = "Insertado exitosamente";
