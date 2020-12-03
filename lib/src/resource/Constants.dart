@@ -50,4 +50,7 @@ class Constants {
 
   static const insertError = "Error al insertar";
   static const loginSuccess = "El inicio de sesión fue exitoso";
+
+  //message validation
+  static const requireData = "El campo es requerido";
 }

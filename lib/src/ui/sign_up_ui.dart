@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:demo/src/widget/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,6 +14,41 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
   DateTime _date = DateTime.now();
+  String _typeDocument;
+  List<String> _list = List();
+
+  void _selection(String selectType) {
+    setState(() {
+      _typeDocument = selectType;
+      String _type;
+      if (_typeDocument == "CC") {
+        _type = "CC";
+        _list = ["CC", "TI", "CE"];
+      }
+      if (_typeDocument == "TI") {
+        _type = "TI";
+        _list = ["TI", "CC", "CE"];
+        print(_list);
+      }
+      if (_typeDocument == "CE") {
+        _type = "CE";
+        _list = ["CE", "TI", "CC"];
+      }
+      _typeDocument = _type;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    lista();
+  }
+
+  List<String> lista() {
+    _list = ["CC", "TI", "CE"];
+    print(_list.toString());
+    return _list;
+  }
 
   Widget _backButton() {
     return InkWell(
@@ -96,99 +132,90 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  Widget _title() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(children: [
-        TextSpan(
-          text: 'Pet',
-          style: GoogleFonts.portLligatSans(
-            textStyle: Theme.of(context).textTheme.headline4,
-            fontSize: 40,
-            fontWeight: FontWeight.w700,
-            color: Colors.black87,
-          ),
-        ),
-        TextSpan(
-          text: 'Soft',
-          style: GoogleFonts.portLligatSlab(
-            textStyle: Theme.of(context).textTheme.headline4,
-            fontSize: 40,
-            fontWeight: FontWeight.w700,
-            color: Colors.lightBlue[900],
-          ),
-        ),
-      ]),
-    );
-  }
-
   Future<Null> selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       context: context,
       initialDate: _date,
       firstDate: DateTime(1950),
-      lastDate: DateTime(2002),
+      lastDate: DateTime(2021),
+      locale: const Locale("es", "ES"),
     );
     if (picked != null && picked != _date) {
       setState(() {
         _date = picked;
+        print("prueba");
+        print(_date);
       });
     }
   }
 
   Widget _registryBody() {
-    String dropdownValue = 'CC';
     return Column(
       children: <Widget>[
         _entryField("Nombres"),
         _entryField("Apellidos"),
         _entryField("Documuento"),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-          Text('Tipo de documento',
-              style: GoogleFonts.montserrat(
-                  textStyle: Theme.of(context).textTheme.headline4,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87)),
-          DropdownButton<String>(
-            value: dropdownValue,
-            icon: Icon(Icons.arrow_drop_down),
-            iconSize: 24,
-            elevation: 16,
-            style: TextStyle(color: Colors.black87),
-            underline: Container(
-              height: 2,
-              color: Colors.blueGrey[700],
-            ),
-            onChanged: (String newValue) {
-              setState(() {
-                dropdownValue = newValue;
-              });
-            },
-            items: <String>['CC', 'TI', 'CE']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
-          )
+          Row(
+            children: [
+              Text('Tipo de documento',
+                  style: GoogleFonts.montserrat(
+                      textStyle: Theme.of(context).textTheme.headline4,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87)),
+              SizedBox(
+                width: 15.0,
+              ),
+              DropdownButton<String>(
+                value: _list[0],
+                icon: Icon(Icons.arrow_drop_down),
+                iconSize: 24,
+                elevation: 16,
+                style: TextStyle(color: Colors.black87),
+                underline: Container(
+                  height: 2,
+                  color: Colors.blueGrey[700],
+                ),
+                onChanged: (value) {
+                  _typeDocument = value;
+                  print(_typeDocument);
+                },
+                items: _list.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                    onTap: () {
+                      _selection(value);
+                    },
+                    value: value,
+                    child: Text(value),
+                  );
+                }).toList(),
+              ),
+            ],
+          ),
         ]),
         Column(crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
-          Text('Fecha nacimiento',
-              style: GoogleFonts.montserrat(
-                  textStyle: Theme.of(context).textTheme.headline4,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.black87)),
-          Container(
-            child: IconButton(
-              icon: Icon(Icons.calendar_today),
-              onPressed: () {
-                selectDate(context);
-              },
-            ),
-          )
+          Row(
+            children: [
+              Text('Fecha nacimiento',
+                  style: GoogleFonts.montserrat(
+                      textStyle: Theme.of(context).textTheme.headline4,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87)),
+              SizedBox(
+                width: 20.0,
+              ),
+              Container(
+                child: IconButton(
+                  icon: Icon(Icons.calendar_today),
+                  onPressed: () {
+                    selectDate(context);
+                  },
+                ),
+              )
+            ],
+          ),
         ]),
         _entryField("Departamento"),
         _entryField("Ciudad"),
@@ -237,7 +264,7 @@ class _SignUpState extends State<SignUp> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     SizedBox(height: height * .2),
-                    _title(),
+                    TitleApp(),
                     SizedBox(
                       height: 50,
                     ),
