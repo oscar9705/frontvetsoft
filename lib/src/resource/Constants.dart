@@ -17,7 +17,6 @@ class Constants {
   static const urlDeleteApponintment = pathBase + "appointment/delete";
 
   //API Veterinary
-<<<<<<< HEAD
   static const urlFindAllVeterinarys = pathBase + "/veterinary/all";
   static const urlInsertVeterinary = pathBase + "/veterinary/save";
   static const urlFindByIdVeterinary = pathBase + "/veterinary/id";
@@ -39,21 +38,7 @@ class Constants {
 
   // Auth
   static const urlRegister = pathBase + "/auth/register";
-=======
-  static const urlFindAllVeterinarys = "/veterinary/all";
-  static const urlInsertVeterinary = "/veterinary/save";
-  static const urlFindByIdVeterinary = "/veterinary/id";
-  static const urlUpdateVeterinary = "/veterinary/update";
-  static const urlDeleteVeterinary = "/veterinary/delete";
-
-  //API Pet
-  static const urlFindAllPets = "/pet/all";
-  static const urlInsertPet = "/pet/save";
-  static const urlFindByIdPet = "/pet/id";
-<<<<<<< HEAD
 
   //message validation
   static const requireData = "El campo es requerido";
-=======
->>>>>>> 1b3023dec0e6dc0980f40b46db788521fa56fa87
 }
