@@ -53,4 +53,5 @@ class Constants {
 
   //message validation
   static const requireData = "El campo es requerido";
+  static const logi = "";
 }
