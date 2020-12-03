@@ -13,7 +13,7 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
-  DateTime _date = DateTime.now();
+  DateTime _date;
   String _typeDocument;
   List<String> _list = List();
 
@@ -135,7 +135,7 @@ class _SignUpState extends State<SignUp> {
   Future<Null> selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(
       context: context,
-      initialDate: _date,
+      initialDate: DateTime.now(),
       firstDate: DateTime(1950),
       lastDate: DateTime(2021),
       locale: const Locale("es", "ES"),
@@ -147,6 +147,10 @@ class _SignUpState extends State<SignUp> {
         print(_date);
       });
     }
+  }
+
+  String _dateLabel() {
+    return _date.toString().contains('null') ? ' ' : _date.toString();
   }
 
   Widget _registryBody() {
@@ -213,7 +217,8 @@ class _SignUpState extends State<SignUp> {
                     selectDate(context);
                   },
                 ),
-              )
+              ),
+              Text(_dateLabel()),
             ],
           ),
         ]),
