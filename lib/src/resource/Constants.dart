@@ -38,7 +38,19 @@ class Constants {
 
   // Auth
   static const urlRegister = pathBase + "/auth/register";
+  static const urlLogin = pathBase + "/auth/login";
+
+  //Message
+  static const insertSuccess = "Insertado exitosamente";
+  static const updateSuccess = "Actualizado exitosamente";
+  static const deleteSuccess = "Eliminado exitosamente";
+  static const searchSuccess = "la busqueda fue exitosa";
+  //Error
+
+  static const insertError = "Error al insertar";
+  static const loginSuccess = "El inicio de sesión fue exitoso";
 
   //message validation
   static const requireData = "El campo es requerido";
+  static const logi = "";
 }
