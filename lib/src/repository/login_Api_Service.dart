@@ -39,7 +39,11 @@ class LoginApiService {
     var body = json.encode(user.toJson());
     print(Constants.urlAuthority);
     Uri uri = Uri.http(Constants.urlAuthority, Constants.urlRegister);
-    var res = await http.post(uri, body: body);
+    var res = await http.post(
+      uri,
+      headers: Constants.content,
+      body: body,
+    );
 
     var resBody = json.decode(res.body);
     apiResponse.statusResponse = res.statusCode;
