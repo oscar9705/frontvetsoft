@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:demo/src/bloc/login_bloc.dart';
 import 'package:demo/src/widget/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,9 +14,16 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  String texto;
+  final GlobalKey<FormState> _formRegister = GlobalKey<FormState>();
+  LoginBloc loginBloc;
   DateTime _date;
   String _typeDocument;
   List<String> _list = List();
+
+  String _dateLabel() {
+    return _date.toString().contains('null') ? ' ' : _date.toString();
+  }
 
   void _selection(String selectType) {
     setState(() {
@@ -147,10 +155,6 @@ class _SignUpState extends State<SignUp> {
         print(_date);
       });
     }
-  }
-
-  String _dateLabel() {
-    return _date.toString().contains('null') ? ' ' : _date.toString();
   }
 
   Widget _registryBody() {
