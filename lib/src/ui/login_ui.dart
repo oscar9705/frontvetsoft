@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:demo/src/bloc/login_bloc.dart';
 import 'package:demo/src/model/login_model.dart' as LoginModel;
 import 'package:demo/src/model/token.model.dart';
@@ -23,6 +21,7 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   LoginBloc loginBloc;
+  bool _obscureText = true;
   LoginModel.Login login = LoginModel.Login(password: '', username: '');
   Token token = Token(username: '', token: '', bearer: '');
   final GlobalKey<FormState> _formLogin = GlobalKey<FormState>();
@@ -33,6 +32,12 @@ class _LoginState extends State<Login> {
   void initState() {
     super.initState();
     loginBloc = LoginBloc();
+  }
+
+  void _toggle() {
+    setState(() {
+      _obscureText = !_obscureText;
+    });
   }
 
   Widget _entryField(String title, {bool isPassword = false}) {
@@ -52,17 +57,36 @@ class _LoginState extends State<Login> {
           SizedBox(
             height: 10,
           ),
-          TextFormField(
-              validator: (value) =>
-                  value.isEmpty ? Constants.requireData : null,
-              onSaved: (value) {
-                isPassword ? login.password = value : login.username = value;
-              },
-              obscureText: isPassword,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Colors.white,
-                  filled: true))
+          Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(width: 1.5, color: Colors.black87)),
+              child: TextFormField(
+                validator: (value) =>
+                    value.isEmpty ? Constants.requireData : null,
+                onSaved: (value) {
+                  isPassword ? login.password = value : login.username = value;
+                },
+                obscureText: title == "Contraseña"
+                    ? _obscureText
+                    : Constants.falseConstant,
+                decoration: InputDecoration(
+                    suffixIcon: title == "Contraseña"
+                        ? FlatButton(
+                            onPressed: _toggle,
+                            child: Icon(_obscureText
+                                ? Icons.visibility_off_outlined
+                                : Icons.visibility_outlined))
+                        : null,
+                    border: OutlineInputBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(18))),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(19))),
+                    fillColor: Colors.white,
+                    filled: true),
+              ))
         ],
       ),
     );

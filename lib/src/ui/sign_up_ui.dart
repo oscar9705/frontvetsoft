@@ -1,8 +1,4 @@
-import 'dart:convert';
-import 'dart:math';
-
 import 'package:demo/src/bloc/login_bloc.dart';
-import 'package:demo/src/bloc/user_bloc.dart';
 import 'package:demo/src/model/user_model.dart';
 import 'package:demo/src/resource/Constants.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
@@ -12,6 +8,7 @@ import 'package:demo/src/widget/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class SignUp extends StatefulWidget {
   SignUp({Key key, this.title}) : super(key: key);
@@ -26,6 +23,7 @@ class _SignUpState extends State<SignUp> {
   final GlobalKey<FormState> _formRegister = GlobalKey<FormState>();
   LoginBloc loginBloc;
   DateTime _date;
+  String dateFormattedLabel = ' ';
   String _typeDocument;
   List<String> _list = List();
   User user = User(
@@ -43,10 +41,6 @@ class _SignUpState extends State<SignUp> {
       password: '',
       state: null,
       role: '');
-
-  String _dateLabel() {
-    return _date.toString().contains('null') ? ' ' : _date.toString();
-  }
 
   void _selection(String selectType) {
     setState(() {
@@ -125,17 +119,25 @@ class _SignUpState extends State<SignUp> {
           SizedBox(
             height: 10,
           ),
-          TextFormField(
-              validator: (value) =>
-                  value.isEmpty ? Constants.requireData : null,
-              onSaved: (value) {
-                setUser(value, title);
-              },
-              obscureText: isPassword,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Colors.white,
-                  filled: true))
+          Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(width: 1.5, color: Colors.black87)),
+              child: TextFormField(
+                validator: (value) =>
+                    value.isEmpty ? Constants.requireData : null,
+                onSaved: (value) {},
+                obscureText: isPassword,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(18))),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(19))),
+                    fillColor: Colors.white,
+                    filled: true),
+              ))
         ],
       ),
     );
@@ -160,12 +162,11 @@ class _SignUpState extends State<SignUp> {
       lastDate: DateTime(2021),
       locale: const Locale("es", "ES"),
     );
+    final DateFormat format = DateFormat('yyyy-MM-dd');
     if (picked != null && picked != _date) {
       setState(() {
         _date = picked;
-        print("prueba");
-        print(_date.toString());
-        user.birthdate = picked;
+        dateFormattedLabel = format.format(_date);
       });
     }
   }
@@ -247,7 +248,7 @@ class _SignUpState extends State<SignUp> {
                         },
                       ),
                     ),
-                    Text(_dateLabel()),
+                    Text(dateFormattedLabel),
                   ],
                 ),
               ]),
