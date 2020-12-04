@@ -128,7 +128,9 @@ class _SignUpState extends State<SignUp> {
               child: TextFormField(
                 validator: (value) =>
                     value.isEmpty ? Constants.requireData : null,
-                onSaved: (value) {},
+                onSaved: (value) {
+                  setUser(value, title);
+                },
                 obscureText: isPassword,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -169,6 +171,7 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         _date = picked;
         user.birthdate = picked;
+        print(user.birthdate.toIso8601String());
         print(user.birthdate.toString() + "Select date");
         dateFormattedLabel = format.format(_date);
       });
@@ -182,7 +185,7 @@ class _SignUpState extends State<SignUp> {
         children: <Widget>[
           _entryField("Nombres"),
           _entryField("Apellidos"),
-          _entryField("Documuento"),
+          _entryField("Documento"),
           SizedBox(
             height: 20.0,
           ),
@@ -296,12 +299,13 @@ class _SignUpState extends State<SignUp> {
       user.state = false;
       user.role = "AUX";
       print(user.birthdate.toString());
+      print(user);
       loginBloc.register(user).then((ApiResponse resp) {
         if (resp.statusResponse == 200) {
           User userPrueba = resp.object;
           print(userPrueba.names);
-          print(resp.object);
-          _goLoginTransition();
+          print(userPrueba.toJson());
+          Navigator.of(context).push(_goLoginTransition());
         }
       });
     }
