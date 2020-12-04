@@ -2,6 +2,7 @@ import 'package:demo/src/bloc/login_bloc.dart';
 import 'package:demo/src/model/login_model.dart' as LoginModel;
 import 'package:demo/src/model/token.model.dart';
 import 'package:demo/src/resource/Constants.dart';
+import 'package:demo/src/ui/first_page_ui.dart';
 import 'package:demo/src/ui/sign_up_ui.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
 import 'package:demo/src/widget/background_widget.dart';
@@ -13,7 +14,6 @@ import 'package:google_fonts/google_fonts.dart';
 class Login extends StatefulWidget {
   Login({Key key, this.title}) : super(key: key);
   final String title;
-  final LoginBloc loginBlocc = LoginBloc();
 
   @override
   _LoginState createState() => _LoginState();
@@ -31,7 +31,7 @@ class _LoginState extends State<Login> {
   @override
   void initState() {
     super.initState();
-    loginBloc = LoginBloc();
+    loginBloc = LoginBloc(context);
   }
 
   void _toggle() {
@@ -103,6 +103,7 @@ class _LoginState extends State<Login> {
       print(apiResponse.statusResponse);
       if (apiResponse.statusResponse == 200) {
         token = apiResponse.object;
+        Navigator.of(context).push(_goHomeTransition());
       }
       print(token.token);
     });
@@ -144,6 +145,25 @@ class _LoginState extends State<Login> {
   Route _goSignUpTransition() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => SignUp(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(0.0, 1.0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+
+  Route _goHomeTransition() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => FirstPage(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(0.0, 1.0);
         var end = Offset.zero;

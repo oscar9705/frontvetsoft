@@ -69,7 +69,7 @@ class _SignUpState extends State<SignUp> {
   void initState() {
     super.initState();
     lista();
-    loginBloc = LoginBloc();
+    loginBloc = LoginBloc(context);
   }
 
   List<String> lista() {

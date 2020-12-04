@@ -1,5 +1,6 @@
 class Constants {
-  static const urlAuthority = "192.168.0.8:8083";
+  static const urlAuthority =
+      "ec2-3-138-116-13.us-east-2.compute.amazonaws.com:8083";
   static const pathBase = "/api/petsoft";
 
   //API User
