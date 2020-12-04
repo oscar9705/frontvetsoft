@@ -5,7 +5,6 @@ import 'package:demo/src/resource/Constants.dart';
 import 'package:demo/src/ui/first_page_ui.dart';
 import 'package:demo/src/ui/sign_up_ui.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
-import 'package:demo/src/utils/errorapiresponse_model.dart';
 import 'package:demo/src/widget/background_widget.dart';
 import 'package:demo/src/widget/button_blue_widget.dart';
 import 'package:demo/src/widget/title_widget.dart';
@@ -96,21 +95,23 @@ class _LoginState extends State<Login> {
   void submit() {
     final formLogin = _formLogin.currentState;
     formLogin.save();
-    print(login.username);
-    print(login.password);
+    if (formLogin.validate()) {
+      print(login.username);
+      print(login.password);
 
-    loginBloc.login(login).then((ApiResponse apiResponse) {
-      print(apiResponse.statusResponse);
-      if (apiResponse.statusResponse == 200) {
-        token = apiResponse.object;
-        Navigator.of(context).push(_goHomeTransition());
-      } else {
-        _formLogin.currentState.setState(() {
-          _formLogin.currentState.reset();
-        });
-      }
-      print(token.token);
-    });
+      loginBloc.login(login).then((ApiResponse apiResponse) {
+        print(apiResponse.statusResponse);
+        if (apiResponse.statusResponse == 200) {
+          token = apiResponse.object;
+          Navigator.of(context).push(_goHomeTransition());
+        } else {
+          _formLogin.currentState.setState(() {
+            _formLogin.currentState.reset();
+          });
+        }
+        print(token.token);
+      });
+    }
   }
 
   Widget _divider() {

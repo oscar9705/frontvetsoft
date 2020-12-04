@@ -10,6 +10,8 @@ import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+import 'login_ui.dart';
+
 class SignUp extends StatefulWidget {
   SignUp({Key key, this.title}) : super(key: key);
   final String title;
@@ -126,7 +128,9 @@ class _SignUpState extends State<SignUp> {
               child: TextFormField(
                 validator: (value) =>
                     value.isEmpty ? Constants.requireData : null,
-                onSaved: (value) {},
+                onSaved: (value) {
+                  setUser(value, title);
+                },
                 obscureText: isPassword,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
@@ -167,6 +171,8 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         _date = picked;
         user.birthdate = picked;
+        print(user.birthdate.toIso8601String());
+        print(user.birthdate.toString() + "Select date");
         dateFormattedLabel = format.format(_date);
       });
     }
@@ -179,7 +185,7 @@ class _SignUpState extends State<SignUp> {
         children: <Widget>[
           _entryField("Nombres"),
           _entryField("Apellidos"),
-          _entryField("Documuento"),
+          _entryField("Documento"),
           SizedBox(
             height: 20.0,
           ),
@@ -267,17 +273,42 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
+  Route _goLoginTransition() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => Login(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(0.0, 1.0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+
   void submit() {
     final formRegister = _formRegister.currentState;
-    formRegister.save();
-    user.state = false;
-    user.role = "AUX";
-    print(user.birthdate.toString());
-    loginBloc.register(user).then((ApiResponse resp) {
-      if (resp.statusResponse == 200) {
-        print(resp.message);
-      }
-    });
+    if (formRegister.validate()) {
+      formRegister.save();
+      user.state = false;
+      user.role = "AUX";
+      print(user.birthdate.toString());
+      print(user);
+      loginBloc.register(user).then((ApiResponse resp) {
+        if (resp.statusResponse == 200) {
+          User userPrueba = resp.object;
+          print(userPrueba.names);
+          print(userPrueba.toJson());
+          Navigator.of(context).push(_goLoginTransition());
+        }
+      });
+    }
   }
 
   @override

@@ -37,7 +37,8 @@ class LoginApiService {
 
   Future<ApiResponse> register(User user) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
-    var body = json.encode(user.toJson());
+    print(json.encode(user.toJsonRegistry()));
+    var body = json.encode(user.toJsonRegistry());
     print(Constants.urlAuthority);
     Uri uri = Uri.http(Constants.urlAuthority, Constants.urlRegister);
     var res = await http.post(
