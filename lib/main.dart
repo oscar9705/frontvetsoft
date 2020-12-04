@@ -11,13 +11,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: [GlobalMaterialLocalizations.delegate],
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: FirstPage(title: 'Login'),
+      //home: FirstPage(title: 'Login'),
+      home: Login(title: 'Login'),
     );
   }
 }

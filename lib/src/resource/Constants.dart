@@ -1,5 +1,6 @@
 class Constants {
-  static const urlAuthority = "192.168.0.8:8083";
+  static const urlAuthority =
+      "ec2-3-138-116-13.us-east-2.compute.amazonaws.com:8083";
   static const pathBase = "/api/petsoft";
 
   //API User
@@ -49,10 +50,12 @@ class Constants {
   //Error
   static const insertError = "Error al insertar";
   static const loginSuccess = "El inicio de sesión fue exitoso";
+  static const loginfailed = "El inicio de sesión falló";
 
   //Message validation
   static const requireData = "El campo es requerido";
   static const content = {'Content-Type': 'application/json; charset=utf-8'};
+  static const registerObject = "Registrando";
 
   //Constants bool
   static const bool falseConstant = false;

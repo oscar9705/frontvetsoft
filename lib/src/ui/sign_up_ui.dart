@@ -69,7 +69,7 @@ class _SignUpState extends State<SignUp> {
   void initState() {
     super.initState();
     lista();
-    loginBloc = LoginBloc();
+    loginBloc = LoginBloc(context);
   }
 
   List<String> lista() {
@@ -166,6 +166,7 @@ class _SignUpState extends State<SignUp> {
     if (picked != null && picked != _date) {
       setState(() {
         _date = picked;
+        user.birthdate = picked;
         dateFormattedLabel = format.format(_date);
       });
     }
