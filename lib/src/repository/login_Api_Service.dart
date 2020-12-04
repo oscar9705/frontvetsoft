@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:demo/src/model/login_model.dart';
 import 'package:demo/src/model/token.model.dart';
@@ -41,7 +42,7 @@ class LoginApiService {
     Uri uri = Uri.http(Constants.urlAuthority, Constants.urlRegister);
     var res = await http.post(
       uri,
-      headers: Constants.content,
+      headers: {HttpHeaders.contentTypeHeader: Constants.content},
       body: body,
     );
 

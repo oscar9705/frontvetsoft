@@ -1,12 +1,10 @@
 import 'package:demo/src/repository/user_Api_Service.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
 import 'package:demo/src/model/user_model.dart';
+import 'package:demo/src/utils/manage_token.dart';
 
-class UserRepository {
+class UserRepository with ManageToken {
   UserApiService userApiService;
-  String accessToken;
-
-  validateExpirationSession() {}
 
   Future<ApiResponse> getAllUsers() => userApiService.getAllUsers(accessToken);
 

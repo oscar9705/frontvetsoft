@@ -54,7 +54,7 @@ class Constants {
 
   //Message validation
   static const requireData = "El campo es requerido";
-  static const content = {'Content-Type': 'application/json; charset=utf-8'};
+  static const content = "application/json; charset=utf-8";
   static const registerObject = "Registrando";
 
   //Constants bool
