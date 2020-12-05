@@ -2,6 +2,7 @@ import 'package:demo/src/bloc/login_bloc.dart';
 import 'package:demo/src/model/user_model.dart';
 import 'package:demo/src/resource/Constants.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
+import 'package:demo/src/utils/validators_forms.dart';
 import 'package:demo/src/widget/background_widget.dart';
 import 'package:demo/src/widget/button_blue_widget.dart';
 import 'package:demo/src/widget/title_widget.dart';
@@ -104,6 +105,10 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
+  dynamic validation(dynamic value, String title) {
+    return ValidatorForms.validateNumberInt(value);
+  }
+
   Widget _entryField(String title, {bool isPassword = false}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -126,8 +131,26 @@ class _SignUpState extends State<SignUp> {
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   border: Border.all(width: 1.5, color: Colors.black87)),
               child: TextFormField(
-                validator: (value) =>
-                    value.isEmpty ? Constants.requireData : null,
+                validator: (value) {
+                  if (title == "Telefono" || title == "Documento") {
+                    return ValidatorForms.validateNumberInt(value);
+                  }
+                  if (title == "Correo") {
+                    return ValidatorForms.validateEmail(value);
+                  }
+                  if (title == "Nombres" ||
+                      title == "Apellidos" ||
+                      title == "Departamento" ||
+                      title == "Ciudad" ||
+                      title == "Barrio") {
+                    return ValidatorForms.validateLetter(value);
+                  }
+                  if (title == "Contraseña") {
+                    return ValidatorForms.validatePassword(value);
+                  }
+
+                  return null;
+                },
                 onSaved: (value) {
                   setUser(value, title);
                 },
