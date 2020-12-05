@@ -1,6 +1,9 @@
 class Constants {
+  //ec2-3-138-116-13.us-east-2.compute.amazonaws.com
+  // static const urlAuthority =
+  //   "ec2-18-223-16-48.us-east-2.compute.amazonaws.com:8083";
   static const urlAuthority =
-      "ec2-3-138-116-13.us-east-2.compute.amazonaws.com:8083";
+      "ec2-18-223-16-48.us-east-2.compute.amazonaws.com:8083";
   static const pathBase = "/api/petsoft";
 
   //API User
@@ -60,4 +63,12 @@ class Constants {
   //Constants bool
   static const bool falseConstant = false;
   static const bool trueConstant = true;
+
+  //constants validation
+  static const String expNumbInt = r"(^(?:\D*\d){10}\D*$)";
+  static const String expPass =
+      r"(^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$)";
+  static const String expLetter = r"(^[ñÑA-Za-z _]*[ñÑA-Za-z][ñÑA-Za-z _]*$)";
+  static const String expEmail =
+      r'(^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$)';
 }
