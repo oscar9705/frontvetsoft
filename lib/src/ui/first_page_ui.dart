@@ -1,3 +1,4 @@
+import 'package:demo/src/bloc/login_bloc.dart';
 import 'package:demo/src/widget/pet_paw_background_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,8 +12,11 @@ class FirstPage extends StatefulWidget {
 }
 
 class _FirstPageState extends State<FirstPage> {
+  LoginBloc loginBloc;
   @override
   void initState() {
+    loginBloc = LoginBloc(context);
+    loginBloc.existToken().then((value) => print(value));
     super.initState();
   }
 
@@ -22,7 +26,7 @@ class _FirstPageState extends State<FirstPage> {
   }
 
   int _selectedIndex = 0;
-  static final List<Widget> _widgetOptions = <Widget>[
+  final List<Widget> _widgetOptions = <Widget>[
     //Initial page scaffold
     Text(
       'Inicio',
@@ -35,7 +39,7 @@ class _FirstPageState extends State<FirstPage> {
     Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.fromLTRB(30, 50, 30, 30),
+          padding: EdgeInsets.fromLTRB(30, 50, 30, 20),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
@@ -46,12 +50,32 @@ class _FirstPageState extends State<FirstPage> {
                     fontWeight: FontWeight.w700,
                     color: Colors.blueGrey[900]),
               ),
-              Container(height: 24, width: 24),
-              Text('Cerrar sesión',
-                  style: GoogleFonts.montserrat(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.red[500]))
+              Container(height: 10, width: 24),
+              Row(
+                children: <Widget>[
+                  InkWell(
+                    onTap: () {},
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Row(
+                        children: <Widget>[
+                          Container(
+                            padding:
+                                EdgeInsets.only(left: 0, top: 5, bottom: 5),
+                            child: Icon(Icons.keyboard_arrow_left,
+                                color: Colors.black),
+                          ),
+                          Text('Volver',
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.red[500]))
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              )
             ],
           ),
         ),

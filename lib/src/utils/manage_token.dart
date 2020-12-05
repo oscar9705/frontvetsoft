@@ -12,6 +12,14 @@ class ManageToken {
     return _storage.read(key: key);
   }
 
+  Future<bool> existValueByKey() async {
+    if (_storage.read(key: 'token') != '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future deleteValue(String key) async {
     await _storage.delete(key: key);
   }

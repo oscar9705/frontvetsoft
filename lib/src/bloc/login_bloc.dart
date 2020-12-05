@@ -61,6 +61,19 @@ class LoginBloc {
     return _apiResponse;
   }
 
+  Future<bool> existToken() async {
+    bool value = await manageToken.existValueByKey();
+    if (value) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void closeSession() {
+    manageToken.logout();
+  }
+
   @override
   void dispose() {}
 }

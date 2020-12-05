@@ -32,6 +32,9 @@ class _LoginState extends State<Login> {
   void initState() {
     super.initState();
     loginBloc = LoginBloc(context);
+    loginBloc.existToken().then((value) => {
+          if (value) {_goHomeTransition()}
+        });
   }
 
   void _toggle() {
@@ -150,25 +153,6 @@ class _LoginState extends State<Login> {
   Route _goSignUpTransition() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => SignUp(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        var begin = Offset(0.0, 1.0);
-        var end = Offset.zero;
-        var curve = Curves.ease;
-
-        var tween =
-            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-        return SlideTransition(
-          position: animation.drive(tween),
-          child: child,
-        );
-      },
-    );
-  }
-
-  Route _goLoginTransition() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => Login(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(0.0, 1.0);
         var end = Offset.zero;
