@@ -32,7 +32,15 @@ class LoginBloc {
     if (apiResponse.statusResponse == 200) {
       Token token = apiResponse.object;
       _progressDialog.update(message: Constants.loginSuccess);
-      manageToken.saveToken(token.token);
+      _repository.saveToken(token.token);
+      _repository.saveEmail(token.username);
+      print("bloc login abre");
+      await _repository.accessToken;
+      await _repository.email;
+      print("accessTokenSesion desde el bloc " + _repository.accessTokenSesion);
+      print("accesEmail desde el bloc " + _repository.accessEmail);
+
+      print("bloc login cierre");
       apiResponse.message = Constants.insertSuccess;
     } else {
       _progressDialog.update(message: Constants.loginfailed);
@@ -40,6 +48,7 @@ class LoginBloc {
       ApiResponse error = apiResponse.object;
       error.message = Constants.loginfailed;
     }
+
     await _progressDialog.hide();
     return apiResponse;
   }
@@ -59,19 +68,6 @@ class LoginBloc {
     }
     await _progressDialog.hide();
     return _apiResponse;
-  }
-
-  Future<bool> existToken() async {
-    bool value = await manageToken.existValueByKey();
-    if (value) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  void closeSession() {
-    manageToken.logout();
   }
 
   @override

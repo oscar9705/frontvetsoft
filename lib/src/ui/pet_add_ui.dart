@@ -1,5 +1,7 @@
-import 'package:demo/src/bloc/login_bloc.dart';
+import 'package:demo/src/bloc/pet_bloc.dart';
+import 'package:demo/src/model/pet_model.dart';
 import 'package:demo/src/model/user_model.dart';
+import 'package:demo/src/ui/pets_ui.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
 import 'package:demo/src/utils/validators_forms.dart';
 import 'package:demo/src/widget/background_widget.dart';
@@ -8,62 +10,50 @@ import 'package:demo/src/widget/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 
-import 'login_ui.dart';
-
-class SignUp extends StatefulWidget {
-  SignUp({Key key, this.title}) : super(key: key);
+class PetAdd extends StatefulWidget {
+  PetAdd({Key key, this.title}) : super(key: key);
   final String title;
 
   @override
-  _SignUpState createState() => _SignUpState();
+  _PetAddState createState() => _PetAddState();
 }
 
-class _SignUpState extends State<SignUp> {
+class _PetAddState extends State<PetAdd> {
   String texto;
   final GlobalKey<FormState> _formRegister = GlobalKey<FormState>();
-  LoginBloc loginBloc;
-  DateTime _date;
-  String dateFormattedLabel = ' ';
-  String _typeDocument;
+  PetBloc petBloc;
   List<String> _list = List();
-  User user = User(
-      id: null,
-      names: '',
-      surnames: '',
-      documentType: '',
-      documentValue: '',
-      birthdate: null,
-      department: '',
-      city: '',
-      neighborhood: '',
-      telephone: '',
-      email: '',
-      password: '',
-      state: null,
-      role: '');
+  String _opcion;
+  Pet pet = Pet(
+      idPet: null,
+      namePet: '',
+      speciePet: '',
+      agePet: '',
+      breedPet: '',
+      sexPet: null,
+      observation: '',
+      ownerPet: 1,
+      statePet: true);
 
   void _selection(String selectType) {
     setState(() {
-      _typeDocument = selectType;
-      String _type;
-      if (_typeDocument == "CC") {
-        _type = "CC";
-        _list = ["CC", "TI", "CE"];
-        user.documentType = _type;
+      _opcion = selectType;
+      String _sexPet;
+      if (_opcion == "macho") {
+        _sexPet = "macho";
+        _list = ['macho', 'hembra'];
+        ;
+        pet.sexPet = _sexPet;
       }
-      if (_typeDocument == "TI") {
-        _type = "TI";
-        _list = ["TI", "CC", "CE"];
-        user.documentType = _type;
+      if (_opcion == "hembra") {
+        _sexPet = "hembra";
+        _list = ['hembra', 'macho'];
+        ;
+        pet.sexPet = _sexPet;
       }
-      if (_typeDocument == "CE") {
-        _type = "CE";
-        _list = ["CE", "TI", "CC"];
-        user.documentType = _type;
-      }
-      _typeDocument = _type;
+
+      _opcion = _sexPet;
     });
   }
 
@@ -71,11 +61,11 @@ class _SignUpState extends State<SignUp> {
   void initState() {
     super.initState();
     lista();
-    loginBloc = LoginBloc(context);
+    petBloc = PetBloc();
   }
 
   List<String> lista() {
-    _list = ['CC', 'TI', 'CE'];
+    _list = ['macho', 'hembra'];
     return _list;
   }
 
@@ -104,11 +94,7 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  dynamic validation(dynamic value, String title) {
-    return ValidatorForms.validateNumberInt(value);
-  }
-
-  Widget _entryField(String title, {bool isPassword = false}) {
+  Widget _entryField(String title) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -131,29 +117,17 @@ class _SignUpState extends State<SignUp> {
                   border: Border.all(width: 1.5, color: Colors.black87)),
               child: TextFormField(
                 validator: (value) {
-                  if (title == "Telefono" || title == "Documento") {
-                    return ValidatorForms.validateNumberInt(value);
-                  }
-                  if (title == "Correo") {
-                    return ValidatorForms.validateEmail(value);
-                  }
-                  if (title == "Nombres" ||
-                      title == "Apellidos" ||
-                      title == "Departamento" ||
-                      title == "Ciudad" ||
-                      title == "Barrio") {
+                  if (title == "Nombre" ||
+                      title == "Especie" ||
+                      title == "Raza" ||
+                      title == "Observacion") {
                     return ValidatorForms.validateLetter(value);
                   }
-                  if (title == "Contraseña") {
-                    return ValidatorForms.validatePassword(value);
-                  }
-
                   return null;
                 },
                 onSaved: (value) {
-                  setUser(value, title);
+                  setPet(value, title);
                 },
-                obscureText: isPassword,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(
                         borderRadius:
@@ -169,33 +143,12 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  void setUser(String value, String title) {
-    if (title == "Nombres") user.names = value;
-    if (title == "Apellidos") user.surnames = value;
-    if (title == "Documento") user.documentValue = value;
-    if (title == "Ciudad") user.city = value;
-    if (title == "Barrio") user.neighborhood = value;
-    if (title == "Telefono") user.telephone = value;
-    if (title == "Correo") user.email = value;
-    if (title == "Contraseña") user.password = value;
-  }
-
-  Future<Null> selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(1950),
-      lastDate: DateTime(2021),
-      locale: const Locale("es", "ES"),
-    );
-    final DateFormat format = DateFormat('yyyy-MM-dd');
-    if (picked != null && picked != _date) {
-      setState(() {
-        _date = picked;
-        user.birthdate = picked;
-        dateFormattedLabel = format.format(_date);
-      });
-    }
+  void setPet(String value, String title) {
+    if (title == "Nombre") pet.namePet = value;
+    if (title == "Especie") pet.speciePet = value;
+    if (title == "Raza") pet.breedPet = value;
+    if (title == "Observacion") pet.observation = value;
+    if (title == "Dueño") pet.ownerPet = int.parse(value);
   }
 
   Widget _registryBody() {
@@ -203,9 +156,9 @@ class _SignUpState extends State<SignUp> {
       key: _formRegister,
       child: Column(
         children: <Widget>[
-          _entryField("Nombres"),
-          _entryField("Apellidos"),
-          _entryField("Documento"),
+          _entryField("Nombre"),
+          _entryField("Especie"),
+          _entryField("Raza"),
           SizedBox(
             height: 20.0,
           ),
@@ -214,7 +167,7 @@ class _SignUpState extends State<SignUp> {
               children: <Widget>[
                 Row(
                   children: [
-                    Text('Tipo de documento',
+                    Text('Sexo',
                         style: GoogleFonts.montserrat(
                             textStyle: Theme.of(context).textTheme.headline4,
                             fontSize: 15,
@@ -234,7 +187,7 @@ class _SignUpState extends State<SignUp> {
                         color: Colors.blueGrey[700],
                       ),
                       onChanged: (value) {
-                        _typeDocument = value;
+                        _opcion = value;
                       },
                       items:
                           _list.map<DropdownMenuItem<String>>((String value) {
@@ -253,49 +206,16 @@ class _SignUpState extends State<SignUp> {
           SizedBox(
             height: 20.0,
           ),
-          Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Row(
-                  children: [
-                    Text('Fecha nacimiento',
-                        style: GoogleFonts.montserrat(
-                            textStyle: Theme.of(context).textTheme.headline4,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.black87)),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    Container(
-                      child: IconButton(
-                        icon: Icon(Icons.calendar_today),
-                        onPressed: () {
-                          selectDate(context);
-                        },
-                      ),
-                    ),
-                    Text(dateFormattedLabel),
-                  ],
-                ),
-              ]),
-          SizedBox(
-            height: 20.0,
-          ),
-          _entryField("Departamento"),
-          _entryField("Ciudad"),
-          _entryField("Barrio"),
-          _entryField("Telefono"),
-          _entryField("Correo"),
-          _entryField("Contraseña", isPassword: true),
+          _entryField("Observacion"),
+          _entryField("Dueño"),
         ],
       ),
     );
   }
 
-  Route _goLoginTransition() {
+  Route _goPetsTransition() {
     return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => Login(),
+      pageBuilder: (context, animation, secondaryAnimation) => PetPage(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(0.0, 1.0);
         var end = Offset.zero;
@@ -316,12 +236,13 @@ class _SignUpState extends State<SignUp> {
     final formRegister = _formRegister.currentState;
     if (formRegister.validate()) {
       formRegister.save();
-      user.state = false;
-      user.role = "AUX";
-      loginBloc.register(user).then((ApiResponse resp) {
+      print(pet.toJson());
+      pet.statePet = true;
+      petBloc.createPet(pet).then((ApiResponse resp) {
         if (resp.statusResponse == 200) {
-          User userPrueba = resp.object;
-          Navigator.of(context).push(_goLoginTransition());
+          Pet petPrueba = resp.object;
+          print(petPrueba.toJson());
+          Navigator.of(context).push(_goPetsTransition());
         }
       });
     }
@@ -354,7 +275,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                     ButtonBlue(
                       onTap: submit,
-                      texto: 'Registrar',
+                      texto: 'Registrar Mascota',
                     ),
                     SizedBox(height: height * .14)
                   ],
@@ -371,6 +292,6 @@ class _SignUpState extends State<SignUp> {
   @override
   void dispose() {
     super.dispose();
-    loginBloc.dispose();
+    petBloc.dispose();
   }
 }

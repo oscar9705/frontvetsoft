@@ -1,8 +1,7 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 
 class PetPawBackgroundWidget extends StatelessWidget {
+  @override
   Widget build(BuildContext context) {
     return Positioned(
         child: Container(

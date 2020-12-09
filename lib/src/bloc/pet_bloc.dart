@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:demo/src/model/pet_model.dart';
-import 'package:demo/src/repository/pet_repository.dart';
+import 'package:demo/src/repository/general_repository.dart';
 import 'package:demo/src/resource/Constants.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
 import 'package:demo/src/utils/errorapiresponse_model.dart';
@@ -10,20 +10,17 @@ import '../model/pet_model.dart';
 
 class PetBloc {
   Pet _pet;
-  final _repository = PetRepository();
+  final _repository = GeneralRepository();
   var _apiResponse = ApiResponse();
   final _petController = StreamController<Pet>.broadcast();
   final _petListController = StreamController<List<Pet>>.broadcast();
 
   List<Pet> _initialList;
-  Stream<Pet> get user => _petController.stream.asBroadcastStream();
-  Stream<List<Pet>> get userList =>
-      _petListController.stream.asBroadcastStream();
+  Stream<Pet> get pet => _petController.stream;
+  Stream<List<Pet>> get petList => _petListController.stream;
 
   ApiResponse get apiResponse => _apiResponse;
-  PetBloc() {
-    _pet = Pet();
-  }
+  PetBloc();
 
   Future initializeData() async {
     ApiResponse apiResponse = await _repository.getAllPet();
@@ -32,23 +29,21 @@ class PetBloc {
       _petListController.add(_initialList);
     } else {
       ErrorApiResponse error = apiResponse.object;
-      FLog.error(text: error.message);
     }
     return apiResponse;
   }
 
-  Future<ApiResponse> createUser(Pet pet) async {
+  Future<ApiResponse> createPet(Pet pet) async {
     ApiResponse apiResponse = await _repository.insertPet(pet);
     if (apiResponse.statusResponse == 200) {
       apiResponse.message = Constants.insertSuccess;
     } else {
       ErrorApiResponse error = apiResponse.object;
-      FLog.error(text: error.message);
     }
     return apiResponse;
   }
 
-  Future getUserById(int idPet) async {
+  Future getPetById(int idPet) async {
     ApiResponse apiResponse = await _repository.getPetById(idPet);
     if (apiResponse.statusResponse == 200) {
       Pet pet = apiResponse.object;

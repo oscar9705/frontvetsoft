@@ -1,7 +1,7 @@
 import 'package:demo/src/resource/Constants.dart';
 
 class ValidatorForms {
-  ValidatorForms() {}
+  ValidatorForms();
   static String validateUsername(String value) {
     return value == null ? Constants.requireData : null;
   }
@@ -16,7 +16,7 @@ class ValidatorForms {
     } else {
       final RegExp number = RegExp(Constants.expNumbInt);
       if (!number.hasMatch(value)) {
-        return "debe de ser númerico e igual a 10 digitos";
+        return "debe de ser númerico ";
       }
     }
     return null;

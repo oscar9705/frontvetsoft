@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
 class LoginApiService {
   Token _token = Token();
   User _user = User();
+  // ignore: unused_field
   ErrorApiResponse _error;
 
   Future<ApiResponse> login(Login login) async {
@@ -37,9 +38,7 @@ class LoginApiService {
 
   Future<ApiResponse> register(User user) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
-    print(json.encode(user.toJsonRegistry()));
     var body = json.encode(user.toJsonRegistry());
-    print(Constants.urlAuthority);
     Uri uri = Uri.http(Constants.urlAuthority, Constants.urlRegister);
     var res = await http.post(
       uri,

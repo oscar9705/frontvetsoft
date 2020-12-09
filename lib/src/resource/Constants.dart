@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 class Constants {
   //ec2-3-138-116-13.us-east-2.compute.amazonaws.com
   // static const urlAuthority =
@@ -9,6 +11,7 @@ class Constants {
   //API User
   static const urlFindAllUsers = pathBase + "/user/all";
   static const urlFindByIdUser = pathBase + "/user/id";
+  static const urlFindByEmailUser = pathBase + "/user/email";
   static const urlInsertUser = pathBase + "/user/save";
   static const urlUpdateUser = pathBase + "/user/update";
   static const urlDeleteUser = pathBase + "/user/delete";
@@ -28,10 +31,10 @@ class Constants {
   static const urlDeleteVeterinary = pathBase + "/veterinary/delete";
 
   //API Pet
-  static const urlFindAllPets = pathBase + "/pet/all";
-  static const urlInsertPet = pathBase + "/pet/save";
-  static const urlFindByIdPet = pathBase + "/pet/id";
-  static const urlDeletePet = pathBase + "/pet/delete";
+  static const urlFindAllPets = pathBase + "/mascota/all";
+  static const urlInsertPet = pathBase + "/mascota/save";
+  static const urlFindByIdPet = pathBase + "/mascota/id";
+  static const urlDeletePet = pathBase + "/mascota/delete";
 
   //BranchOffice
   static const urlFindAllBranchOffice = pathBase + "/branchoffice/all";
@@ -71,4 +74,7 @@ class Constants {
   static const String expLetter = r"(^[ñÑA-Za-z _]*[ñÑA-Za-z][ñÑA-Za-z _]*$)";
   static const String expEmail =
       r'(^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$)';
+
+  //Colores aplicación
+  static const colorPrimary = Color.fromRGBO(1, 87, 155, 0.7);
 }

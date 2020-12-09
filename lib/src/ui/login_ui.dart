@@ -11,6 +11,8 @@ import 'package:demo/src/widget/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'admin_ui.dart';
+
 class Login extends StatefulWidget {
   Login({Key key, this.title}) : super(key: key);
   final String title;
@@ -25,16 +27,11 @@ class _LoginState extends State<Login> {
   LoginModel.Login login = LoginModel.Login(password: '', username: '');
   Token token = Token(username: '', token: '', bearer: '');
   final GlobalKey<FormState> _formLogin = GlobalKey<FormState>();
-  final textController = TextEditingController();
-  final textControllerPass = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     loginBloc = LoginBloc(context);
-    loginBloc.existToken().then((value) => {
-          if (value) {_goHomeTransition()}
-        });
   }
 
   void _toggle() {
@@ -99,20 +96,19 @@ class _LoginState extends State<Login> {
     final formLogin = _formLogin.currentState;
     formLogin.save();
     if (formLogin.validate()) {
-      print(login.username);
-      print(login.password);
-
       loginBloc.login(login).then((ApiResponse apiResponse) {
-        print(apiResponse.statusResponse);
         if (apiResponse.statusResponse == 200) {
           token = apiResponse.object;
-          Navigator.of(context).push(_goHomeTransition());
+          if (token.role[0].authority == 'ADMIN') {
+            Navigator.of(context).push(_goAdminTransition());
+          } else {
+            Navigator.of(context).push(_goHomeTransition());
+          }
         } else {
           _formLogin.currentState.setState(() {
             _formLogin.currentState.reset();
           });
         }
-        print(token.token);
       });
     }
   }
@@ -153,6 +149,25 @@ class _LoginState extends State<Login> {
   Route _goSignUpTransition() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => SignUp(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        var begin = Offset(0.0, 1.0);
+        var end = Offset.zero;
+        var curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
+  }
+
+  Route _goAdminTransition() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => AdminScreen(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         var begin = Offset(0.0, 1.0);
         var end = Offset.zero;
@@ -295,5 +310,6 @@ class _LoginState extends State<Login> {
   void dispose() {
     super.dispose();
     loginBloc.dispose();
+    _formLogin.currentState.reset();
   }
 }
