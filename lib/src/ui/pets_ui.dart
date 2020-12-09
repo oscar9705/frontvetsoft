@@ -34,7 +34,7 @@ class _PetPageState extends State<PetPage> {
               title: Text(pets[index].namePet),
               subtitle:
                   Text(pets[index].speciePet + " " + pets[index].breedPet),
-              leading: Icon(Icons.account_box),
+              leading: Icon(Icons.pets),
             ),
             Divider(),
           ],
