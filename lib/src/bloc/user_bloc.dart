@@ -60,14 +60,13 @@ class UserBloc {
     return apiResponse;
   }
 
-  Future getUserById(int id) async {
+  Future<ApiResponse> getUserById(int id) async {
     ApiResponse apiResponse = await _repository.getUserById(id);
     if (apiResponse.statusResponse == 200) {
       User user = apiResponse.object;
-      _userController.add(user);
+      addUserStream(user);
     } else {
       ErrorApiResponse error = apiResponse.object;
-      FLog.error(text: error.message);
     }
     return apiResponse;
   }

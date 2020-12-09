@@ -1,5 +1,6 @@
 import 'package:demo/src/bloc/user_bloc.dart';
 import 'package:demo/src/model/user_model.dart';
+import 'package:demo/src/ui/user_detail.dart';
 import 'package:demo/src/widget/title_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -27,17 +28,32 @@ class _UserPageState extends State<UserPage> {
     return ListView.builder(
       padding: const EdgeInsets.all(8),
       itemBuilder: (context, index) {
-        return Container(
+        return InkWell(
+          child: Container(
             child: Column(
-          children: [
-            ListTile(
-              title: Text(users[index].names + " " + users[index].surnames),
-              subtitle: Text(users[index].role),
-              leading: Icon(Icons.account_box),
+              children: [
+                ListTile(
+                  title: Text(users[index].names + " " + users[index].surnames),
+                  subtitle: Text(users[index].role),
+                  leading: Icon(Icons.account_box),
+                ),
+                Divider(),
+              ],
             ),
-            Divider(),
-          ],
-        ));
+          ),
+          onTap: () {
+            int idPrueba = users[index].id;
+            print(users[index].id);
+            print(users[index].names + users[index].surnames);
+            /* Navigator.pushNamed(context, 'detail',
+                arguments: UserDetail(id: users[index].id)); */
+
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => UserDetail(
+                      id: idPrueba,
+                    )));
+          },
+        );
       },
       itemCount: users.length,
     );
