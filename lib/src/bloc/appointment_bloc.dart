@@ -11,8 +11,11 @@ class AppointmentBloc {
   final _repository = AppointmentRepository();
   var _apiResponse = ApiResponse();
 
+  // ignore: unused_field
   Appointment _appointment;
+  // ignore: unused_field
   BuildContext _context;
+  // ignore: unused_field
   ErrorApiResponse _error;
 
   final _appointmentListController =
@@ -40,6 +43,7 @@ class AppointmentBloc {
     if (_apiResponse.statusResponse == 200) {
       _appointment = _apiResponse.object;
     } else {
+      // ignore: unused_local_variable
       ErrorApiResponse error = _apiResponse.object;
     }
     return _apiResponse;
@@ -50,6 +54,7 @@ class AppointmentBloc {
     if (_apiResponse.statusResponse == 200) {
       _appointment = _apiResponse.object;
     } else {
+      // ignore: unused_local_variable
       ErrorApiResponse error = _apiResponse.object;
     }
     return _apiResponse;
@@ -60,6 +65,7 @@ class AppointmentBloc {
     if (_apiResponse.statusResponse == 200) {
       _apiResponse.message = Constants.updateSuccess;
     } else {
+      // ignore: unused_local_variable
       ErrorApiResponse error = _apiResponse.object;
     }
     return _apiResponse;
@@ -70,6 +76,7 @@ class AppointmentBloc {
     if (_apiResponse.statusResponse == 200) {
       _apiResponse.message = Constants.deleteSuccess;
     } else {
+      // ignore: unused_local_variable
       ErrorApiResponse error = _apiResponse.object;
     }
     return _apiResponse;

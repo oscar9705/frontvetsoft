@@ -2,7 +2,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ManageToken {
   final _storage = FlutterSecureStorage();
-  String accessToken;
+  String accessTokenSesion = "";
+  String accessEmail = "";
 
   Future<Map<String, String>> getAllValue() async {
     return _storage.readAll();
@@ -10,6 +11,16 @@ class ManageToken {
 
   Future<String> getValueByKey(String key) async {
     return _storage.read(key: key);
+  }
+
+  Future<String> getValueToken() async {
+    await getToken();
+    return _storage.read(key: 'token');
+  }
+
+  Future<String> getValueEmail() async {
+    await getToken();
+    return _storage.read(key: 'email');
   }
 
   Future deleteValue(String key) async {
@@ -25,22 +36,31 @@ class ManageToken {
   }
 
   Future getToken() async {
-    accessToken = await getValueByKey('token');
+    accessTokenSesion = await getValueByKey('token');
+  }
+
+  Future getEmail() async {
+    accessEmail = await getValueByKey('email');
   }
 
   Future get tokenSesion async {
-    accessToken = await _storage.read(key: 'token');
+    accessTokenSesion = await _storage.read(key: 'token');
   }
 
   void saveToken(String token) async {
     await writeValue('token', token);
-    accessToken = await _storage.read(key: 'token');
+    accessTokenSesion = await _storage.read(key: 'token');
+  }
+
+  void saveEmail(String email) async {
+    await writeValue('email', email);
+    accessEmail = await _storage.read(key: 'email');
   }
 
   bool existToken() {
     var token;
     _storage.read(key: 'token').then((value) => token = value);
-    print(token);
+
     return token != null;
   }
 
@@ -48,5 +68,6 @@ class ManageToken {
     await deleteValue('token');
   }
 
-  Future get accessTokenSesion => getToken();
+  Future get accessToken => getToken();
+  Future get email => getEmail();
 }

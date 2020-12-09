@@ -1,6 +1,5 @@
 import 'package:demo/src/bloc/login_bloc.dart';
 import 'package:demo/src/model/user_model.dart';
-import 'package:demo/src/resource/Constants.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
 import 'package:demo/src/utils/validators_forms.dart';
 import 'package:demo/src/widget/background_widget.dart';
@@ -76,7 +75,7 @@ class _SignUpState extends State<SignUp> {
   }
 
   List<String> lista() {
-    _list = ["CC", "TI", "CE"];
+    _list = ['CC', 'TI', 'CE'];
     return _list;
   }
 
@@ -194,8 +193,6 @@ class _SignUpState extends State<SignUp> {
       setState(() {
         _date = picked;
         user.birthdate = picked;
-        print(user.birthdate.toIso8601String());
-        print(user.birthdate.toString() + "Select date");
         dateFormattedLabel = format.format(_date);
       });
     }
@@ -321,13 +318,9 @@ class _SignUpState extends State<SignUp> {
       formRegister.save();
       user.state = false;
       user.role = "AUX";
-      print(user.birthdate.toString());
-      print(user);
       loginBloc.register(user).then((ApiResponse resp) {
         if (resp.statusResponse == 200) {
           User userPrueba = resp.object;
-          print(userPrueba.names);
-          print(userPrueba.toJson());
           Navigator.of(context).push(_goLoginTransition());
         }
       });

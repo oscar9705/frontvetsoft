@@ -1,7 +1,7 @@
 import 'package:demo/src/resource/Constants.dart';
 
 class ValidatorForms {
-  ValidatorForms() {}
+  ValidatorForms();
   static String validateUsername(String value) {
     return value == null ? Constants.requireData : null;
   }

@@ -1,4 +1,6 @@
+import 'package:demo/src/ui/first_page_ui.dart';
 import 'package:demo/src/ui/login_ui.dart';
+import 'package:demo/src/ui/users_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -17,7 +19,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Login(title: 'Login'),
+      initialRoute: 'login',
+      routes: {
+        '/': (BuildContext context) => FirstPage(),
+        'users': (BuildContext context) => UserPage(),
+        'login': (BuildContext context) => Login(),
+      },
+      //home: Login(title: 'Login'),
     );
   }
 }
