@@ -17,7 +17,8 @@ class VeterinaryApiService {
       Veterinary veterinary, String accessToken) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var body = json.encode(veterinary.toJsonRegistry());
-    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlInsertVeterinary);
+    Uri uri = Uri.http(Constants.urlAuthority,
+        Constants.pathBase + Constants.urlInsertVeterinary);
     var res = await http.post(uri,
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
@@ -42,7 +43,8 @@ class VeterinaryApiService {
       Veterinary veterinary, String accessToken) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var body = json.encode(veterinary.toJson());
-    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlUpdateVeterinary);
+    Uri uri = Uri.http(Constants.urlAuthority,
+        Constants.pathBase + Constants.urlUpdateVeterinary);
     var res = await http.put(uri,
         headers: {
           HttpHeaders.contentTypeHeader: "application/json",
@@ -66,7 +68,8 @@ class VeterinaryApiService {
   Future<ApiResponse> findAllVeterinary(String accessToken) async {
     List<Veterinary> listVeterinary = List();
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
-    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlFindAllVeterinarys);
+    Uri uri = Uri.http(Constants.urlAuthority,
+        Constants.pathBase + Constants.urlFindAllVeterinarys);
     var res = await http.get(uri,
         headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
     var resBody = json.decode(res.body);
@@ -89,8 +92,8 @@ class VeterinaryApiService {
   Future<ApiResponse> getVeterinaryById(int id, String accessToken) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var queryParameters = {'id': id.toString()};
-    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlFindByIdVeterinary,
-        queryParameters);
+    Uri uri = Uri.http(Constants.urlAuthority,
+        Constants.pathBase + Constants.urlFindByIdVeterinary, queryParameters);
     var res = await http.get(uri,
         headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
 
@@ -109,8 +112,8 @@ class VeterinaryApiService {
   Future<ApiResponse> deleteVeterinary(int id, String accessToken) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var queryParameters = {'id': id.toString()};
-    Uri uri = Uri.http(
-        Constants.urlAuthority, Constants.urlDeleteVeterinary, queryParameters);
+    Uri uri = Uri.http(Constants.urlAuthority,
+        Constants.pathBase + Constants.urlDeleteVeterinary, queryParameters);
     var res = await http.delete(uri,
         headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
 

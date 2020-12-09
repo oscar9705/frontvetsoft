@@ -1,54 +1,80 @@
+import 'dart:ui';
+
 class Constants {
-  static const urlAuthority = "urlAuthority";
+  //ec2-3-138-116-13.us-east-2.compute.amazonaws.com
+  // static const urlAuthority =
+  //   "ec2-18-223-16-48.us-east-2.compute.amazonaws.com:8083";
+  static const urlAuthority =
+      "ec2-18-223-16-48.us-east-2.compute.amazonaws.com:8083";
+  static const pathBase = "/api/petsoft";
 
   //API User
-  static const urlFindAllUsers = "user/all";
-  static const urlFindByIdUser = "user/id";
-  static const urlInsertUser = "user/save";
-  static const urlUpdateUser = "user/update";
-  static const urlDeleteUser = "user/delete";
+  static const urlFindAllUsers = pathBase + "/user/all";
+  static const urlFindByIdUser = pathBase + "/user/id";
+  static const urlFindByEmailUser = pathBase + "/user/email";
+  static const urlInsertUser = pathBase + "/user/save";
+  static const urlUpdateUser = pathBase + "/user/update";
+  static const urlDeleteUser = pathBase + "/user/delete";
 
   //API Appointment
-  static const urlFindAllApponintments = "appointment/all";
-  static const urlInsertApponintment = "appointment/save";
-  static const urlFindByIdApponintment = "appointment/id";
-  static const urlUpdateApponintment = "appointment/update";
-  static const urlDeleteApponintment = "appointment/delete";
+  static const urlFindAllApponintments = pathBase + "appointment/all";
+  static const urlInsertApponintment = pathBase + "appointment/save";
+  static const urlFindByIdApponintment = pathBase + "appointment/id";
+  static const urlUpdateApponintment = pathBase + "appointment/update";
+  static const urlDeleteApponintment = pathBase + "appointment/delete";
 
   //API Veterinary
-  static const urlFindAllVeterinarys = "veterinary/all";
-  static const urlInsertVeterinary = "veterinary/save";
-  static const urlFindByIdVeterinary = "veterinary/id";
-  static const urlUpdateVeterinary = "veterinary/update";
-  static const urlDeleteVeterinary = "veterinary/delete";
+  static const urlFindAllVeterinarys = pathBase + "/veterinary/all";
+  static const urlInsertVeterinary = pathBase + "/veterinary/save";
+  static const urlFindByIdVeterinary = pathBase + "/veterinary/id";
+  static const urlUpdateVeterinary = pathBase + "/veterinary/update";
+  static const urlDeleteVeterinary = pathBase + "/veterinary/delete";
 
   //API Pet
-  static const urlFindAllPets = "pet/all";
-  static const urlInsertPet = "pet/save";
-  static const urlFindByIdPet = "pet/id";
-  static const urlUpdatePet = "pet/update";
-  static const urlDeletePet = "pet/delete";
+  static const urlFindAllPets = pathBase + "/mascota/all";
+  static const urlInsertPet = pathBase + "/mascota/save";
+  static const urlFindByIdPet = pathBase + "/mascota/id";
+  static const urlDeletePet = pathBase + "/mascota/delete";
+
   //BranchOffice
+  static const urlFindAllBranchOffice = pathBase + "/branchoffice/all";
+  static const urlInsertBranchOffice = pathBase + "/branchoffice/save";
+  static const urlFindByIdBranchOffice = pathBase + "/branchoffice/id";
+  static const urlUpdateBranchOffice = pathBase + "/branchoffice/update";
+  static const urlDeleteBranchOffice = pathBase + "/branchoffice/delete";
 
-  static const urlFindAllBranchOffice = "branchoffice/all";
-  static const urlInsertBranchOffice = "branchoffice/save";
-  static const urlFindByIdBranchOffice = "branchoffice/id";
-  static const urlUpdateBranchOffice = "branchoffice/update";
-  static const urlDeleteBranchOffice = "branchoffice/delete";
-  
-  
+  // Auth
+  static const urlRegister = pathBase + "/auth/register";
+  static const urlLogin = pathBase + "/auth/login";
+
   //Message
-
   static const insertSuccess = "Insertado exitosamente";
-
   static const updateSuccess = "Actualizado exitosamente";
-
   static const deleteSuccess = "Eliminado exitosamente";
-
   static const searchSuccess = "la busqueda fue exitosa";
 
-
   //Error
-
   static const insertError = "Error al insertar";
+  static const loginSuccess = "El inicio de sesión fue exitoso";
+  static const loginfailed = "El inicio de sesión falló";
+
+  //Message validation
+  static const requireData = "El campo es requerido";
+  static const content = "application/json; charset=utf-8";
+  static const registerObject = "Registrando";
+
+  //Constants bool
+  static const bool falseConstant = false;
+  static const bool trueConstant = true;
+
+  //constants validation
+  static const String expNumbInt = r"(^(?:\D*\d){10}\D*$)";
+  static const String expPass =
+      r"(^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$)";
+  static const String expLetter = r"(^[ñÑA-Za-z _]*[ñÑA-Za-z][ñÑA-Za-z _]*$)";
+  static const String expEmail =
+      r'(^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$)';
+
+  //Colores aplicación
+  static const colorPrimary = Color.fromRGBO(1, 87, 155, 0.7);
 }

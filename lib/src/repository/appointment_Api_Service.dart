@@ -1,10 +1,10 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:demo/src/model/appointment_model.dart';
 import 'package:demo/src/resource/Constants.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
 import 'package:demo/src/utils/errorapiresponse_model.dart';
-import 'dart:convert';
 import 'package:f_logs/model/flog/flog.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,7 +19,7 @@ class AppointmentApiService {
     Uri url =
         Uri.http(Constants.urlAuthority, Constants.urlFindAllApponintments);
     var res = await http.get(url,
-        headers: {HttpHeaders.authorizationHeader: "AutorizationHeader"});
+        headers: {HttpHeaders.authorizationHeader: 'AutorizationHeader'});
     var resBody = json.decode(res.body);
 
     apiResponse.statusResponse = res.statusCode;
@@ -43,8 +43,8 @@ class AppointmentApiService {
     Uri uri = Uri.http(Constants.urlAuthority, Constants.urlInsertApponintment);
     var res = await http.post(uri,
         headers: {
-          HttpHeaders.contentTypeHeader: "application/json",
-          HttpHeaders.authorizationHeader: "AutorizationHeader"
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: 'AutorizationHeader'
         },
         body: body);
 
@@ -66,7 +66,7 @@ class AppointmentApiService {
     Uri url =
         Uri.http(Constants.urlAuthority, Constants.urlFindByIdApponintment);
     var res = await http.get(url,
-        headers: {HttpHeaders.authorizationHeader: "AutorizationHeader"});
+        headers: {HttpHeaders.authorizationHeader: 'AutorizationHeader'});
     var resBody = json.decode(res.body);
 
     apiResponse.statusResponse = res.statusCode;
@@ -87,8 +87,8 @@ class AppointmentApiService {
     Uri uri = Uri.http(Constants.urlAuthority, Constants.urlUpdateApponintment);
     var res = await http.put(uri,
         headers: {
-          HttpHeaders.contentTypeHeader: "application/json",
-          HttpHeaders.authorizationHeader: "AutorizationHeader"
+          HttpHeaders.contentTypeHeader: 'application/json',
+          HttpHeaders.authorizationHeader: 'AutorizationHeader'
         },
         body: body);
 
@@ -109,7 +109,7 @@ class AppointmentApiService {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     Uri url = Uri.http(Constants.urlAuthority, Constants.urlDeleteApponintment);
     var res = await http.get(url,
-        headers: {HttpHeaders.authorizationHeader: "AutorizationHeader"});
+        headers: {HttpHeaders.authorizationHeader: 'AutorizationHeader'});
     var resBody = json.decode(res.body);
 
     apiResponse.statusResponse = res.statusCode;

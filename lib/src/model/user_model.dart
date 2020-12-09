@@ -31,13 +31,13 @@ class User {
       this.role});
 
   factory User.fromJson(Map<String, dynamic> json) {
-    return new User(
+    return User(
         id: json['id'],
         names: json['names'],
         surnames: json['surnames'],
         documentType: json['documentType'],
         documentValue: json['documentValue'],
-        birthdate: json['birthdate'],
+        birthdate: DateTime.parse(json['birthdate']),
         department: json['department'],
         city: json['city'],
         neighborhood: json['neighborhood'],
@@ -45,7 +45,7 @@ class User {
         email: json['email'],
         password: json['password'],
         state: json['state'],
-        role: json['role']);
+        role: json['roleUser']);
   }
 
   Map<String, dynamic> toJson() => {
@@ -54,7 +54,7 @@ class User {
         'surnames': surnames,
         'documentType': documentType,
         'documentValue': documentValue,
-        'birthdate': birthdate,
+        'birthdate': birthdate.toIso8601String(),
         'department': department,
         'city': city,
         'neighborhood': neighborhood,
@@ -62,7 +62,7 @@ class User {
         'email': email,
         'password': password,
         'state': state,
-        'role': role
+        'roleUser': role
       };
 
   Map<String, dynamic> toJsonRegistry() => {
@@ -70,7 +70,7 @@ class User {
         'surnames': surnames,
         'documentType': documentType,
         'documentValue': documentValue,
-        'birthdate': birthdate,
+        'birthdate': birthdate.toIso8601String(),
         'department': department,
         'city': city,
         'neighborhood': neighborhood,
@@ -78,6 +78,6 @@ class User {
         'email': email,
         'password': password,
         'state': state,
-        'role': role
+        'roleUser': role
       };
 }
