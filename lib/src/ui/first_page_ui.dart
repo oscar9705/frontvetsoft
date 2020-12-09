@@ -37,7 +37,7 @@ class _FirstPageState extends State<FirstPage> {
   @override
   void initState() {
     loginBloc = LoginBloc(context);
-    loginBloc.existToken().then((value) => print(value));
+
     super.initState();
     userBloc = UserBloc();
 
