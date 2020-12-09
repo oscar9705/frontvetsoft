@@ -38,12 +38,13 @@ class UserApiService {
   }
 
   Future<ApiResponse> getUserById(int id, String accessToken) async {
+    String toke = await manageToken.getValueToken();
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var queryParameters = {'id': id.toString()};
     Uri uri = Uri.http(
         Constants.urlAuthority, Constants.urlFindByIdUser, queryParameters);
-    var res = await http.get(uri,
-        headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
+    var res = await http
+        .get(uri, headers: {HttpHeaders.authorizationHeader: "Bearer " + toke});
 
     var resBody = json.decode(res.body);
     apiResponse.statusResponse = res.statusCode;

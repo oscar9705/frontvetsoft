@@ -1,8 +1,11 @@
+import 'package:demo/src/model/user_model.dart';
 import 'package:demo/src/ui/first_page_ui.dart';
 import 'package:demo/src/ui/login_ui.dart';
 import 'package:demo/src/ui/pet_add_ui.dart';
 import 'package:demo/src/ui/pets_ui.dart';
+import 'package:demo/src/ui/user_detail.dart';
 import 'package:demo/src/ui/users_ui.dart';
+import 'package:demo/src/widget/profile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 

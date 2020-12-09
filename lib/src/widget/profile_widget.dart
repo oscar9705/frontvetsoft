@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 class ProfileWidget extends StatelessWidget {
   final User user;
-  ProfileWidget({@required this.user});
+  ProfileWidget({this.user});
   @override
   Widget build(BuildContext context) {
     return Container(

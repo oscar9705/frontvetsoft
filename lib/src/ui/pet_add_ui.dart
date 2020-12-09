@@ -1,6 +1,5 @@
 import 'package:demo/src/bloc/pet_bloc.dart';
 import 'package:demo/src/model/pet_model.dart';
-import 'package:demo/src/model/user_model.dart';
 import 'package:demo/src/ui/pets_ui.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
 import 'package:demo/src/utils/validators_forms.dart';
