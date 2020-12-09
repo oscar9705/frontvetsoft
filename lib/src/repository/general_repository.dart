@@ -1,11 +1,14 @@
 import 'package:demo/src/model/login_model.dart';
+import 'package:demo/src/model/pet_model.dart';
 import 'package:demo/src/model/user_model.dart';
 import 'package:demo/src/repository/login_Api_Service.dart';
+import 'package:demo/src/repository/pet_Api_Service.dart';
 import 'package:demo/src/repository/user_Api_Service.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
 import 'package:demo/src/utils/manage_token.dart';
 
 class GeneralRepository with ManageToken {
+  final petApiService = PetApiService();
   final loginApiService = LoginApiService();
   final userApiService = UserApiService();
 
@@ -31,4 +34,19 @@ class GeneralRepository with ManageToken {
 
   Future<ApiResponse> deleteUser(int id) =>
       userApiService.deleteUser(id, accessTokenSesion);
+
+  //pet
+  Future<ApiResponse> getAllPet() => petApiService.getAllPet(accessTokenSesion);
+
+  Future<ApiResponse> getPetById(int idPet) =>
+      petApiService.getPetById(idPet, accessTokenSesion);
+
+  Future<ApiResponse> insertPet(Pet pet) =>
+      petApiService.insertPet(pet, accessTokenSesion);
+
+  Future<ApiResponse> updatePet(Pet pet) =>
+      petApiService.updatePet(pet, accessTokenSesion);
+
+  Future<ApiResponse> deletePet(int idPet) =>
+      petApiService.deletePet(idPet, accessTokenSesion);
 }

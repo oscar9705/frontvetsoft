@@ -31,10 +31,10 @@ class Constants {
   static const urlDeleteVeterinary = pathBase + "/veterinary/delete";
 
   //API Pet
-  static const urlFindAllPets = pathBase + "/pet/all";
-  static const urlInsertPet = pathBase + "/pet/save";
-  static const urlFindByIdPet = pathBase + "/pet/id";
-  static const urlDeletePet = pathBase + "/pet/delete";
+  static const urlFindAllPets = pathBase + "/mascota/all";
+  static const urlInsertPet = pathBase + "/mascota/save";
+  static const urlFindByIdPet = pathBase + "/mascota/id";
+  static const urlDeletePet = pathBase + "/mascota/delete";
 
   //BranchOffice
   static const urlFindAllBranchOffice = pathBase + "/branchoffice/all";

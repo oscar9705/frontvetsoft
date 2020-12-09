@@ -114,9 +114,12 @@ class _AdminScreenState extends State<AdminScreen> {
         ]),
         TableRow(children: [
           _crearBotonRedondeado(
-              Constants.colorPrimary, Icons.people_alt_rounded, 'Usuarios'),
-          _crearBotonRedondeado(
-              Constants.colorPrimary, Icons.pets_sharp, 'Mascotas'),
+              Constants.colorPrimary,
+              Icons.people_alt_rounded,
+              'Usuarios',
+              () => Navigator.pushNamed(context, 'users')),
+          _crearBotonRedondeado(Constants.colorPrimary, Icons.pets_sharp,
+              'Mascotas', () => Navigator.pushNamed(context, 'pets')),
         ]),
         TableRow(children: [
           _crearBotonRedondeado(
@@ -134,7 +137,12 @@ class _AdminScreenState extends State<AdminScreen> {
     );
   }
 
-  Widget _crearBotonRedondeado(Color color, IconData icono, String texto) {
+  void usersRoute() {
+    Navigator.pushNamed(context, 'users');
+  }
+
+  Widget _crearBotonRedondeado(Color color, IconData icono, String texto,
+      [VoidCallback tap]) {
     return ClipRect(
       child: InkWell(
         child: BackdropFilter(
@@ -165,7 +173,7 @@ class _AdminScreenState extends State<AdminScreen> {
             ),
           ),
         ),
-        onTap: () => Navigator.pushNamed(context, 'users'),
+        onTap: tap,
       ),
     );
   }
