@@ -8,19 +8,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:demo/src/resource/Constants.dart';
 
 import '../model/branchoffice_model.dart';
-import '../model/branchoffice_model.dart';
-import '../model/branchoffice_model.dart';
-import '../model/branchoffice_model.dart';
-import '../model/branchoffice_model.dart';
-import '../model/branchoffice_model.dart';
 import '../repository/branchoffice_repository.dart';
 
 class BranchOfficeBloc {
   final _repository = BranchOfficeRepository();
   var _apiResponse = ApiResponse();
 
-  BranchOffice _branchOffice;
-  BuildContext _context;
   ErrorApiResponse _error;
 
   final _branchOfficeListController =
@@ -29,7 +22,6 @@ class BranchOfficeBloc {
   Stream<List<BranchOffice>> get branchOfficeList =>
       _branchOfficeListController.stream.asBroadcastStream();
   BranchOfficeBloc(BuildContext context) {
-    _context = context;
     _apiResponse = ApiResponse();
   }
 
@@ -46,7 +38,6 @@ class BranchOfficeBloc {
   Future getById(int id) async {
     _apiResponse = await _repository.getBranchOfficeById(id);
     if (_apiResponse.statusResponse == 200) {
-      _branchOffice = _apiResponse.object;
     } else {
       ErrorApiResponse error = _apiResponse.object;
     }
@@ -56,7 +47,6 @@ class BranchOfficeBloc {
   Future<ApiResponse> getAll() async {
     _apiResponse = await _repository.getAllBranchOffice();
     if (_apiResponse.statusResponse == 200) {
-      _branchOffice = _apiResponse.object;
     } else {
       ErrorApiResponse error = _apiResponse.object;
     }
@@ -86,6 +76,5 @@ class BranchOfficeBloc {
   void dispose() {
     _branchOfficeController.close();
     _branchOfficeListController.close();
-    
   }
 }
