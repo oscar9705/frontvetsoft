@@ -40,8 +40,8 @@ class UserApiService {
   Future<ApiResponse> getUserById(int id, String accessToken) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var queryParameters = {'id': id.toString()};
-    Uri uri = Uri.http(Constants.urlAuthority,
-        Constants.pathBase + Constants.urlFindByIdUser, queryParameters);
+    Uri uri = Uri.http(
+        Constants.urlAuthority, Constants.urlFindByIdUser, queryParameters);
     var res = await http.get(uri,
         headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
 
@@ -82,8 +82,7 @@ class UserApiService {
   Future<ApiResponse> insertUser(User user, String accessToken) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var body = json.encode(user.toJsonRegistry());
-    Uri uri = Uri.http(
-        Constants.urlAuthority, Constants.pathBase + Constants.urlInsertUser);
+    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlInsertUser);
     var res = await http.post(uri,
         headers: {
           HttpHeaders.contentTypeHeader: Constants.content,
@@ -107,8 +106,7 @@ class UserApiService {
   Future<ApiResponse> updateUser(User user, String accessToken) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var body = json.encode(user.toJson());
-    Uri uri = Uri.http(
-        Constants.urlAuthority, Constants.pathBase + Constants.urlUpdateUser);
+    Uri uri = Uri.http(Constants.urlAuthority, Constants.urlUpdateUser);
     var res = await http.put(uri,
         headers: {
           HttpHeaders.contentTypeHeader: Constants.content,
@@ -132,8 +130,8 @@ class UserApiService {
   Future<ApiResponse> deleteUser(int id, String accessToken) async {
     ApiResponse apiResponse = ApiResponse(statusResponse: 0);
     var queryParameters = {'id': id.toString()};
-    Uri uri = Uri.http(Constants.urlAuthority,
-        Constants.pathBase + Constants.urlDeleteUser, queryParameters);
+    Uri uri = Uri.http(
+        Constants.urlAuthority, Constants.urlDeleteUser, queryParameters);
     var res = await http.delete(uri,
         headers: {HttpHeaders.authorizationHeader: "Bearer " + accessToken});
 

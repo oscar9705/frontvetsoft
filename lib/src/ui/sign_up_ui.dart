@@ -354,7 +354,7 @@ class _SignUpState extends State<SignUp> {
                     ),
                     ButtonBlue(
                       onTap: submit,
-                      texto: 'Iniciar sesión',
+                      texto: 'Registrar',
                     ),
                     SizedBox(height: height * .14)
                   ],

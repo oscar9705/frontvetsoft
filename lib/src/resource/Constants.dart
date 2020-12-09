@@ -35,8 +35,8 @@ class Constants {
   static const urlInsertPet = pathBase + "/pet/save";
   static const urlFindByIdPet = pathBase + "/pet/id";
   static const urlDeletePet = pathBase + "/pet/delete";
-  //BranchOffice
 
+  //BranchOffice
   static const urlFindAllBranchOffice = pathBase + "/branchoffice/all";
   static const urlInsertBranchOffice = pathBase + "/branchoffice/save";
   static const urlFindByIdBranchOffice = pathBase + "/branchoffice/id";

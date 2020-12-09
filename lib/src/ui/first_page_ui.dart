@@ -1,3 +1,4 @@
+import 'package:demo/src/bloc/login_bloc.dart';
 import 'package:demo/src/bloc/user_bloc.dart';
 import 'package:demo/src/model/user_model.dart';
 import 'package:demo/src/utils/apiresponse_model.dart';
@@ -16,6 +17,7 @@ class FirstPage extends StatefulWidget {
 
 class _FirstPageState extends State<FirstPage> {
   UserBloc userBloc;
+  LoginBloc loginBloc;
   User user = User(
       id: null,
       names: '',
@@ -34,6 +36,8 @@ class _FirstPageState extends State<FirstPage> {
 
   @override
   void initState() {
+    loginBloc = LoginBloc(context);
+    loginBloc.existToken().then((value) => print(value));
     super.initState();
     userBloc = UserBloc();
 

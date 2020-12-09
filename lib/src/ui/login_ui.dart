@@ -32,6 +32,9 @@ class _LoginState extends State<Login> {
   void initState() {
     super.initState();
     loginBloc = LoginBloc(context);
+    loginBloc.existToken().then((value) => {
+          if (value) {_goHomeTransition()}
+        });
   }
 
   void _toggle() {

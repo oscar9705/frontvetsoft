@@ -70,5 +70,6 @@ class LoginBloc {
     return _apiResponse;
   }
 
+  @override
   void dispose() {}
 }
